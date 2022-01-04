@@ -59,6 +59,9 @@ const ButtonWrapper = styled.span`
   border-radius: 13px;
   padding: 4px;
   background-color: ${({ backgroundColor }) => backgroundColor};
+
+  cursor: pointer;
+  user-select: none;
 `;
 
 const Button = styled.div`
@@ -69,8 +72,8 @@ const Button = styled.div`
 `;
 
 const CreateButton = styled(Button)`
-  background-color: olive;
-  color: ivory;
+  background-color: ivory;
+  color: #5e3618;
 `;
 
 function Room() {
@@ -86,7 +89,7 @@ function Room() {
       <BokjimanmiList />
 
       <ButtonSection>
-        <ButtonWrapper backgroundColor={"yellowgreen"}>
+        <ButtonWrapper backgroundColor={"crimson"}>
           <CreateButton>복주머니 투척하기</CreateButton>
         </ButtonWrapper>
       </ButtonSection>
