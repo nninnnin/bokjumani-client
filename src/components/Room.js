@@ -50,7 +50,7 @@ const ButtonSection = styled.div`
 
   position: absolute;
   left: 50%;
-  bottom: 3%;
+  bottom: 1%;
   transform: translate(-50%);
 `;
 
