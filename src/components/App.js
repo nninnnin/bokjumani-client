@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     width: 400px;
     position: relative;
   }
+
+  * {
+    user-select: none;
+  }
 `;
 
 const BackgroundImage = styled.img`
