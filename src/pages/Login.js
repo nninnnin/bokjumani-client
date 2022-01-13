@@ -89,30 +89,28 @@ function Login() {
     });
 
     // kakaoId로 서버에 요청을 보낸다
-    const { data: user } = await axios(
-      `${process.env.REACT_APP_SERVER_URL}/users`,
-      {
-        params: {
-          kakaoId,
-        },
-        withCredentials: true,
-      }
-    );
+    const {
+      data: { result, message },
+    } = await axios(`${process.env.REACT_APP_SERVER_URL}/users`, {
+      params: {
+        kakaoId,
+      },
+      withCredentials: true,
+    });
 
-    console.log("가입한 유저가 존재하나요?", user);
-
-    // 없다면 회원가입 시키고,
-    if (!user) {
-      // 회원가입 모달 띄우기..
+    if (result === "failed") {
       navigate("/signUp", {
         state: { backgroundLocation: location, kakaoId },
         replace: false,
       });
     }
 
-    // 있다면 그냥 회원 정보 가져오기..(쿠키에 담아주기!)
-
-    // 가져왔으면 redirect..
+    if (result === "ok" && document.cookie.includes("user")) {
+      // redirect to homepage
+      navigate("/", {
+        replace: true,
+      });
+    }
   }, []);
 
   function handleLoginButtonClick() {

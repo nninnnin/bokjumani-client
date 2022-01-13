@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+import Cookie from "js-cookie";
 
 import Room from "../components/Room";
 import subHeaderImageSource from "../assets/background/subheader.svg";
@@ -47,6 +48,20 @@ const BlackFlim = styled.div`
 `;
 
 function Home() {
+  useEffect(() => {
+    const cookie = Cookie.get();
+
+    console.log(cookie.user);
+
+    if (!cookie.user) {
+      // 로그인 화면으로 redirect
+      return;
+    }
+
+    const user = JSON.parse(cookie.user);
+    console.log(user);
+  }, []);
+
   const { state: locationState } = useLocation();
   const backgroundLocation = locationState?.backgroundLocation;
 
