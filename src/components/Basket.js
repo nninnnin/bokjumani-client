@@ -1,38 +1,52 @@
 import React from "react";
 import styled from "styled-components";
 
-import BasketSource from "../assets/background/basket.svg";
+import BasketSource from "../assets/items/basket.svg";
+import BasketCoverSource from "../assets/items/basket-cover.svg";
 import BokjumaniSource1 from "../assets/bokjumani/bok1.svg";
 
 const Container = styled.div`
-  position: relative;
-  bottom: 200px;
+  width: 40%;
+
+  position: absolute;
+  right: 0;
+  top: 40%;
 `;
 const Basket = styled.img`
-  width: 34%;
+  width: 100%;
 
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 100;
+  z-index: 0;
+`;
+const BasketCover = styled.img`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
 `;
 const BokjumaniWrapper = styled.div`
-  transform: translate(${({ spreadRatio }) => spreadRatio * 0.5}px);
+  transform: translate(${({ spreadRatio }) => spreadRatio * 0.5}%);
 `;
 const Bokjumani = styled.img`
-  width: 18%;
+  width: 40%;
   position: absolute;
-  bottom: ${({ order }) => (order === 2 ? "25px" : "10px")};
-  right: ${({ order, spreadRatio }) => order * spreadRatio}px;
-  z-index: ${({ zIndex }) => zIndex * 10}; ;
+  bottom: ${({ order }) => (order === 2 ? "4vh" : "1vh")};
+  right: ${({ order, spreadRatio }) => order * spreadRatio}%;
+  z-index: ${({ zIndex }) => zIndex * 10};
+
+  cursor: pointer;
 `;
 
 function BasketComponent() {
-  const spreadRatio = 18;
+  const spreadRatio = 20;
 
   return (
     <Container>
       <Basket src={BasketSource} />
+      <BasketCover src={BasketCoverSource} />
 
       <BokjumaniWrapper spreadRatio={spreadRatio}>
         <Bokjumani

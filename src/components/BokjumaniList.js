@@ -10,12 +10,12 @@ import BokjumaniSource6 from "../assets/bokjumani/bok6.svg";
 
 const Container = styled.div`
   position: absolute;
-  bottom: 10%;
-
-  transform: translate(0, -10%);
+  top: 48%;
 `;
 const Bokjumani = styled.img`
   width: 20%;
+
+  cursor: pointer;
 `;
 
 function BokjimanmiList() {

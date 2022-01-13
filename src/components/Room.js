@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
 
 import BokjimanmiList from "./BokjumaniList";
 import Basket from "./Basket";
 
-import WallpaperSource from "../assets/background/wallpaper.svg";
-import WindowSource from "../assets/background/window.svg";
-import CabinetSource from "../assets/background/cabinet.svg";
-import TelevisionSource from "../assets/background/television.svg";
+import wallpaperSource from "../assets/background/wallpaper.svg";
+import windowSource from "../assets/items/window.gif";
+import cabinetSource from "../assets/items/cabinet.svg";
+import televisionSource from "../assets/items/television.svg";
+import createButtonSource from "../assets/buttons/create.svg";
+import myHomeButtonSource from "../assets/buttons/my-home.svg";
 
 const Container = styled.div`
   width: 100%;
-  flex: 1;
 
   position: relative;
 `;
@@ -19,29 +21,25 @@ const Wallpaper = styled.img`
   width: 100%;
 `;
 const Window = styled.img`
-  width: 60%;
+  width: 50%;
 
   position: absolute;
-  top: 10%;
-  right: 15%;
-
-  transform: translate(15%, -10%);
+  top: 5%;
+  left: 15%;
 `;
 const Cabinet = styled.img`
-  width: 60%;
+  width: 55%;
 
   position: absolute;
-  top: 50%;
-  left: 5%;
-  transform: translate(-5%, -50%);
+  top: 30%;
+  left: 2%;
 `;
 const Television = styled.img`
-  width: 34%;
+  width: 30%;
 
   position: absolute;
-  top: 32%;
-  left: 8%;
-  transform: translate(-8%, -32%);
+  top: 20%;
+  left: 5%;
 `;
 
 const ButtonSection = styled.div`
@@ -50,48 +48,44 @@ const ButtonSection = styled.div`
 
   position: absolute;
   left: 50%;
-  bottom: 1%;
+  bottom: 10%;
   transform: translate(-50%);
+
+  & > img {
+    margin-bottom: 3%;
+  }
 `;
 
-const ButtonWrapper = styled.span`
-  border: 2px solid #5e3618;
-  border-radius: 13px;
-  padding: 4px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-
+const ButtonImage = styled.img`
   cursor: pointer;
-  user-select: none;
 `;
 
-const Button = styled.div`
-  font-family: "BMEULJIRO";
-
-  padding: 10px;
-  border-radius: 8px;
+const CreateButton = styled(ButtonImage)`
+  width: 100%;
 `;
-
-const CreateButton = styled(Button)`
-  background-color: ivory;
-  color: #5e3618;
+const MyHomeButton = styled(ButtonImage)`
+  width: 100%;
 `;
 
 function Room() {
+  const location = useLocation();
+
   return (
     <Container>
-      <Wallpaper src={WallpaperSource} />
+      <Wallpaper src={wallpaperSource} />
 
-      <Window src={WindowSource} />
-      <Cabinet src={CabinetSource} />
-      <Television src={TelevisionSource} />
+      <Window src={windowSource} />
+      <Cabinet src={cabinetSource} />
+      <Television src={televisionSource} />
       <Basket />
 
       <BokjimanmiList />
 
       <ButtonSection>
-        <ButtonWrapper backgroundColor={"crimson"}>
-          <CreateButton>복주머니 투척하기</CreateButton>
-        </ButtonWrapper>
+        <Link to="/select" state={{ backgroundLocation: location }}>
+          <CreateButton src={createButtonSource} />
+        </Link>
+        <MyHomeButton src={myHomeButtonSource} />
       </ButtonSection>
     </Container>
   );
