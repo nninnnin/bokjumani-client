@@ -62,6 +62,7 @@ function Login() {
   useEffect(async () => {
     if (!(location.pathname === "/oauth")) return;
 
+    // 카카오톡의 인가코드를 가져온다
     const authCode = location.search.split("?code=")[1];
 
     const url = "https://kauth.kakao.com/oauth/token";
@@ -78,26 +79,32 @@ function Login() {
       })
       .join("&");
 
+    // 카카오에 accessToken을 요청한다
     const { data } = await axios(url + "?" + encodedParams);
-
     const accessToken = data.access_token;
 
+    // 받아온 accessToken을 카카오에 세팅한다
     await Kakao.Auth.setAccessToken(accessToken);
 
+    // accessToken이 있으므로 유저 정보(카카오 id)를 가져올 수 있다
     const { id: kakaoId } = await Kakao.API.request({
       url: "/v2/user/me",
     });
 
-    // kakaoId로 서버에 요청을 보낸다
-    const {
-      data: { result, message },
-    } = await axios(`${process.env.REACT_APP_SERVER_URL}/users`, {
-      params: {
-        kakaoId,
-      },
-      withCredentials: true,
-    });
+    // 유저의 kakaoId로 서버에 등록된 유저가 있는지 확인한다
+    const { data: userData } = await axios(
+      `${process.env.REACT_APP_SERVER_URL}/users`,
+      {
+        params: {
+          kakaoId,
+        },
+        withCredentials: true,
+      }
+    );
 
+    const { result, user } = userData;
+
+    // 회원으로 등록되어 있지 않은 유저일 경우
     if (result === "failed") {
       navigate("/signUp", {
         state: { backgroundLocation: location, kakaoId },
@@ -105,17 +112,16 @@ function Login() {
       });
     }
 
-    if (result === "ok" && document.cookie.includes("user")) {
+    // 회원으로 등록되어 있는 유저일 경우
+    if (result === "ok") {
       // redirect to homepage
-      navigate("/", {
+      navigate(`/${user.room_uri}`, {
         replace: true,
       });
     }
   }, []);
 
   function handleLoginButtonClick() {
-    console.log(process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI);
-
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI,
     });

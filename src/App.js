@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -7,6 +7,69 @@ import Login from "./pages/Login";
 import Select from "./components/Select";
 import Create from "./components/Create";
 import SignUp from "./components/SignUp";
+
+export const GlobalContext = createContext();
+
+const initialState = {
+  roomOwner: "",
+  bokjumaniList: [],
+  selectedBok: 1,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_ROOM_OWNER":
+      return { ...state, roomOwner: action.payload };
+    case "SET_BOKJUMANI_LIST":
+      return { ...state, bokjumaniList: action.payload };
+    case "SET_SELECTED_BOK":
+      return { ...state, selectedBok: action.payload };
+    default:
+      throw new Error("Invalid action type");
+  }
+}
+
+function App() {
+  const location = useLocation();
+  const locationState = location.state;
+  const backgroundLocation = locationState?.backgroundLocation;
+
+  const hasModal = Boolean(backgroundLocation);
+
+  console.log(location);
+
+  const [globalState, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <GlobalContext.Provider value={{ globalState, dispatch }}>
+      <Container>
+        <GlobalStyle />
+
+        {/* 기본 routes */}
+        <Routes location={locationState?.backgroundLoation || locationState}>
+          <Route path="/" element={<Home />} />
+          <Route path="/select" element={<Home />} />
+          <Route path="/create" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/oauth" element={<Login />} />
+          <Route path="/signUp" element={<Login />} />
+          <Route path="/:roomId" element={<Home />} />
+        </Routes>
+
+        {hasModal && <BlackFlim />}
+
+        {/* 모달 routes */}
+        {locationState?.backgroundLocation && (
+          <Routes>
+            <Route path="/select" element={<Select />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/signUp" element={<SignUp />} />
+          </Routes>
+        )}
+      </Container>
+    </GlobalContext.Provider>
+  );
+}
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -35,48 +98,31 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
   width: 100%;
-  /* aspect-ratio: 9 / 15.8; */
+  height: 100%;
   max-width: 360px;
-  /* height: auto; */
-  /* max-height: 630px; */
+  max-height: 650px;
   background-color: #a7845f;
 
   padding: 1%;
 
-  position: relative;
-  top: 0;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
 
   overflow: scroll;
 `;
 
-function App() {
-  const location = useLocation();
-  const locationState = location.state;
+const BlackFlim = styled.div`
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  opacity: 0.5;
 
-  return (
-    <Container>
-      <GlobalStyle />
-
-      <Routes location={locationState?.backgroundLoation || locationState}>
-        <Route path="/" element={<Home />} />
-        <Route path="/select" element={<Home />} />
-        <Route path="/create" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/oauth" element={<Login />} />
-        <Route path="/signUp" element={<Login />} />
-      </Routes>
-
-      {locationState?.backgroundLocation && (
-        <Routes>
-          <Route path="/select" element={<Select />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/signUp" element={<SignUp />} />
-        </Routes>
-      )}
-    </Container>
-  );
-}
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
 
 export default App;

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useContext, useReducer } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// import backgroundSource from "../assets/background/modal-select-bok.svg";
 import bok1Source from "../assets/bokjumani/selective/bok1.svg";
 import bok2Source from "../assets/bokjumani/selective/bok2.svg";
 import bok3Source from "../assets/bokjumani/selective/bok3.svg";
@@ -16,10 +15,96 @@ import bok9Source from "../assets/bokjumani/selective/bok9.svg";
 import backButtonSource from "../assets/buttons/back.svg";
 import nextButtonSource from "../assets/buttons/next.svg";
 
+const bokSourceList = [
+  bok1Source,
+  bok2Source,
+  bok3Source,
+  bok4Source,
+  bok5Source,
+  bok6Source,
+  bok7Source,
+  bok8Source,
+  bok9Source,
+];
+
+import { GlobalContext } from "../App";
+
+function Create() {
+  const {
+    globalState: { roomOwner, selectedBok },
+    dispatch,
+  } = useContext(GlobalContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleRandomSelectionButtonClick() {
+    dispatch({
+      type: "SET_SELECTED_BOK",
+      payload: Math.floor(Math.random() * 9) + 1,
+    });
+  }
+
+  function handleBokClick(e, bokIndex) {
+    dispatch({
+      type: "SET_SELECTED_BOK",
+      payload: bokIndex,
+    });
+  }
+
+  function handleBackButtonClick() {
+    navigate(-1);
+  }
+
+  function handleNextButtonClick() {
+    if (!selectedBok) return;
+
+    navigate("/create", {
+      state: {
+        backgroundLocation: { ...location.state.backgroundLocation },
+      },
+    });
+  }
+
+  return (
+    <Container>
+      <ModalHeader>
+        <BackButton src={backButtonSource} onClick={handleBackButtonClick} />
+        <NextButton
+          src={nextButtonSource}
+          onClick={handleNextButtonClick}
+          disabled={!selectedBok}
+        />
+      </ModalHeader>
+
+      <SelectBox>
+        <Header>🧧{roomOwner} 님에게🧧</Header>
+        <SubHeader>
+          선물할 복주머니를 골라주세요!
+          <span onClick={handleRandomSelectionButtonClick}>랜덤 선택</span>
+        </SubHeader>
+        <BokList>
+          {bokSourceList.map((bokSource, index) => {
+            const bokIndex = index + 1;
+
+            return (
+              <Bok
+                key={"bok" + bokIndex}
+                src={bokSource}
+                isSelected={selectedBok === bokIndex}
+                onClick={(e) => handleBokClick(e, bokIndex)}
+              />
+            );
+          })}
+        </BokList>
+      </SelectBox>
+    </Container>
+  );
+}
+
 const Container = styled.div`
-  width: 87%;
-  height: 61%;
-  aspect-ratio: 9 / 15.8;
+  width: 85%;
+  height: 80%;
   border: 3px solid #2f2118;
   border-radius: 10px;
 
@@ -38,7 +123,6 @@ const Container = styled.div`
 `;
 
 const ModalHeader = styled.div`
-  background-color: blue;
   flex: 1;
 
   position: relative;
@@ -50,18 +134,14 @@ const ModalHeader = styled.div`
   padding: 0 3.5%;
 `;
 
-const ButtonLink = styled(Link)`
+const ButtonImage = styled.img`
   width: 20%;
-  display: flex;
-  align-items: center;
-
   cursor: pointer;
 `;
-const ButtonImage = styled.img`
-  width: 100%;
-`;
 const BackButton = styled(ButtonImage)``;
-const NextButton = styled(ButtonImage)``;
+const NextButton = styled(ButtonImage)`
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
 
 const SelectBox = styled.div`
   background-color: #f0e8e0;
@@ -87,10 +167,25 @@ const SubHeader = styled.h4`
   font-size: 4vw;
   font-family: "BMEULJIRO";
   font-weight: 500;
-  padding-left: 1em;
+  padding: 0 1em;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
   @media (min-width: 400px) {
     font-size: 16px;
+  }
+
+  & > span {
+    color: white;
+    background-color: #c1bc40;
+    border: 3px solid #e1e141;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 0.6em;
+
+    cursor: pointer;
   }
 `;
 
@@ -102,7 +197,7 @@ const BokList = styled.div`
 `;
 
 const Bok = styled.img`
-  width: 30%;
+  height: 10vh;
   margin: 1%;
 
   border: ${({ isSelected }) => isSelected && "solid 3px red"};
@@ -110,62 +205,5 @@ const Bok = styled.img`
 
   cursor: pointer;
 `;
-
-// const BackgroundImage = styled.img`
-//   width: 100%;
-// `;
-
-const bokSourceList = [
-  bok1Source,
-  bok2Source,
-  bok3Source,
-  bok4Source,
-  bok5Source,
-  bok6Source,
-  bok7Source,
-  bok8Source,
-  bok9Source,
-];
-
-function Create() {
-  const [clickedBok, setClickedBok] = useState();
-
-  const location = useLocation();
-
-  function handleBokClick(e, bokIndex) {
-    setClickedBok(bokIndex);
-  }
-
-  return (
-    <Container>
-      <ModalHeader>
-        <ButtonLink to="/">
-          <BackButton src={backButtonSource} />
-        </ButtonLink>
-        <ButtonLink to="/create" state={{ backgroundLocation: location }}>
-          <NextButton src={nextButtonSource} />
-        </ButtonLink>
-      </ModalHeader>
-
-      <SelectBox>
-        <Header>🧧정만두 님에게🧧</Header>
-        <SubHeader>선물할 복주머니를 골라주세요!</SubHeader>
-        <BokList>
-          {bokSourceList.map((bokSource, index) => {
-            return (
-              <Bok
-                key={"bok" + index}
-                src={bokSource}
-                isSelected={clickedBok === index}
-                onClick={(e) => handleBokClick(e, index)}
-              />
-            );
-          })}
-        </BokList>
-      </SelectBox>
-      {/* <BackgroundImage src={backgroundSource} /> */}
-    </Container>
-  );
-}
 
 export default Create;

@@ -1,14 +1,118 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { last } from "lodash";
+import axios from "axios";
+import React, { useState, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import backButtonSource from "../assets/buttons/back.svg";
 import submitButtonSource from "../assets/buttons/submit.svg";
+import { GlobalContext } from "../App";
+
+function Create() {
+  const {
+    globalState: { roomOwner, selectedBok },
+  } = useContext(GlobalContext);
+
+  const [name, setName] = useState("");
+  const [greeting, setGreeting] = useState("");
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleBackButtonClick() {
+    navigate(-1);
+  }
+
+  async function handleSubmitButtonClick() {
+    if (isSubmitDisabled) return;
+
+    if (!name || !greeting) alert("모두 입력해주세요!");
+
+    setIsSubmitDisabled(true);
+
+    // room id로 user id 알아내기
+    const roomId = last(location.state.backgroundLocation.pathname.split("/"));
+
+    const {
+      data: { result, user, message },
+    } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/room/${roomId}`);
+
+    if (result === "failed") {
+      console.log(message);
+      alert("방 주인 정보를 가져오는데 실패했습니다 🥲");
+
+      return;
+    }
+
+    // 복주머니 create 요청보내기
+    const {
+      data: { result: createResult, newBokjumani, message: createMessage },
+    } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/bokjumani/${user._id}`,
+      {
+        author: name,
+        greeting,
+        type: selectedBok,
+      }
+    );
+
+    if (createResult === "ok" && newBokjumani) {
+      // redirect to 원래의 room!
+      const redireactionPath = location.state.backgroundLocation.pathname;
+
+      navigate(redireactionPath, { replace: true });
+    } else {
+      alert("새로운 복주머니 생성에 실패했습니다..🥲");
+
+      console.log(createResult);
+      setIsSubmitDisabled(false);
+    }
+  }
+
+  function handleChangeName(e) {
+    if (e.target.value.length > 3) return;
+
+    setName(e.target.value);
+  }
+
+  return (
+    <Container>
+      <ModalHeader>
+        <BackButton src={backButtonSource} onClick={handleBackButtonClick} />
+        <SubmitButton
+          src={submitButtonSource}
+          onClick={handleSubmitButtonClick}
+          disabled={isSubmitDisabled}
+        />
+      </ModalHeader>
+
+      <SelectBox>
+        <Header>🧧{roomOwner} 님에게🧧</Header>
+        <SubHeader>새해 덕담을 나눠주세요!</SubHeader>
+        <Textarea
+          value={greeting}
+          onChange={(e) => setGreeting(e.target.value)}
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          autoFocus={true}
+        />
+        <NameInput
+          type="text"
+          placeholder="당신은 누구인가요? (세글자까지)"
+          value={name}
+          onChange={handleChangeName}
+        />
+      </SelectBox>
+    </Container>
+  );
+}
 
 const Container = styled.div`
-  width: 87%;
-  height: 61%;
-  aspect-ratio: 9 / 15.8;
+  width: 85%;
+  height: 80%;
   border: 3px solid #2f2118;
   border-radius: 10px;
 
@@ -27,7 +131,6 @@ const Container = styled.div`
 `;
 
 const ModalHeader = styled.div`
-  background-color: blue;
   flex: 1;
 
   position: relative;
@@ -38,14 +141,8 @@ const ModalHeader = styled.div`
 
   padding: 0 3.5%;
 `;
-
-const ButtonLink = styled(Link)`
-  width: 20%;
-  display: flex;
-  align-items: center;
-`;
 const ButtonImage = styled.img`
-  width: 100%;
+  width: 20%;
 
   cursor: pointer;
 `;
@@ -115,27 +212,5 @@ const NameInput = styled.input`
   font-family: "BMEULJIRO";
   text-align: center;
 `;
-
-function Create() {
-  const location = useLocation();
-
-  return (
-    <Container>
-      <ModalHeader>
-        <ButtonLink to="/select" state={{ backgroundLocation: location }}>
-          <BackButton src={backButtonSource} />
-        </ButtonLink>
-        <SubmitButton src={submitButtonSource} />
-      </ModalHeader>
-
-      <SelectBox>
-        <Header>🧧정만두 님에게🧧</Header>
-        <SubHeader>새해 덕담을 나눠주세요!</SubHeader>
-        <Textarea name="" id="" cols="30" rows="10" />
-        <NameInput type="text" placeholder="당신은 누구인가요? (세글자까지)" />
-      </SelectBox>
-    </Container>
-  );
-}
 
 export default Create;

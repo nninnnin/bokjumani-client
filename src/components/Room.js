@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import Cookie from "js-cookie";
 
 import BokjimanmiList from "./BokjumaniList";
 import Basket from "./Basket";
@@ -14,11 +15,15 @@ import myHomeButtonSource from "../assets/buttons/my-home.svg";
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
 
   position: relative;
-`;
-const Wallpaper = styled.img`
-  width: 100%;
+
+  background-image: url(${wallpaperSource});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
 `;
 const Window = styled.img`
   width: 50%;
@@ -48,7 +53,7 @@ const ButtonSection = styled.div`
 
   position: absolute;
   left: 50%;
-  bottom: 10%;
+  bottom: 4%;
   transform: translate(-50%);
 
   & > img {
@@ -69,11 +74,14 @@ const MyHomeButton = styled(ButtonImage)`
 
 function Room() {
   const location = useLocation();
+  const cookie = Cookie.get();
+
+  // 내 집이 아닌 경우
+  // const isNotMyHome = cookie?.user && ;
+  const isNotMyHome = true;
 
   return (
     <Container>
-      <Wallpaper src={wallpaperSource} />
-
       <Window src={windowSource} />
       <Cabinet src={cabinetSource} />
       <Television src={televisionSource} />
@@ -81,12 +89,19 @@ function Room() {
 
       <BokjimanmiList />
 
-      <ButtonSection>
-        <Link to="/select" state={{ backgroundLocation: location }}>
-          <CreateButton src={createButtonSource} />
-        </Link>
-        <MyHomeButton src={myHomeButtonSource} />
-      </ButtonSection>
+      {isNotMyHome && (
+        <ButtonSection>
+          <Link
+            to="/select"
+            state={{
+              backgroundLocation: location,
+            }}
+          >
+            <CreateButton src={createButtonSource} />
+          </Link>
+          <MyHomeButton src={myHomeButtonSource} />
+        </ButtonSection>
+      )}
     </Container>
   );
 }

@@ -1,10 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
+import axios from "axios";
 
 import Room from "../components/Room";
-import subHeaderImageSource from "../assets/background/subheader.svg";
+import { GlobalContext } from "../App";
+
+function Home() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const {
+    globalState: { roomOwner, bokjumaniList },
+    dispatch,
+  } = useContext(GlobalContext);
+
+  useEffect(async () => {
+    const isSignUpPage = location.pathname.split("/")[1] === "signUp";
+    if (isSignUpPage) return;
+
+    const cookie = Cookie.get();
+
+    if (!cookie.user) {
+      navigate("/login");
+
+      return;
+    }
+
+    const userRoomId = location.pathname.split("/")[1];
+
+    const {
+      data: { result, user, message },
+    } = await axios(`${process.env.REACT_APP_SERVER_URL}/room/${userRoomId}`);
+
+    if (result === "failed") {
+      console.log(message);
+
+      alert("잘못된 링크입니다!");
+    }
+
+    dispatch({ type: "SET_ROOM_OWNER", payload: user.name });
+    dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
+  }, []);
+
+  return (
+    <Container>
+      <HeaderWrapper>
+        <Header>
+          {roomOwner}님에게 복주머니 {bokjumaniList.length}개 가 전달됐어요!
+        </Header>
+      </HeaderWrapper>
+      <RoomWrapper>
+        <Room />
+      </RoomWrapper>
+    </Container>
+  );
+}
 
 const Container = styled.div`
   width: 100%;
@@ -15,69 +67,32 @@ const Container = styled.div`
   padding: 5% 3%;
 
   background-color: #976e3d;
+
+  display: flex;
+  flex-direction: column;
 `;
-const HeaderContainer = styled.div`
-  margin: 3%;
+const HeaderWrapper = styled.div`
+  /* margin: 3% 0; */
 `;
-const Header = styled.h1`
-  width: 100%;
-  margin: 0;
-  margin-bottom: 3%;
+const Header = styled.marquee`
+  width: 90%;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: black;
+  border-radius: 5px;
+  color: yellow;
+  line-height: 2em;
 
   font-family: "BMEULJIRO";
-  font-size: 3vh;
-  font-weight: 700;
-  -webkit-text-stroke: 0.01vh ivory;
-  color: #5e3618;
-
+  font-size: 2.6vh;
   word-break: keep-all;
-`;
-const SubHeader = styled.img`
-  width: 80%;
-`;
-const BlackFlim = styled.div`
-  background-color: black;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  opacity: 0.5;
 
-  position: absolute;
-  top: 0;
-  left: 0;
+  padding-top: 3px;
 `;
 
-function Home() {
-  useEffect(() => {
-    const cookie = Cookie.get();
-
-    console.log(cookie.user);
-
-    if (!cookie.user) {
-      // 로그인 화면으로 redirect
-      return;
-    }
-
-    const user = JSON.parse(cookie.user);
-    console.log(user);
-  }, []);
-
-  const { state: locationState } = useLocation();
-  const backgroundLocation = locationState?.backgroundLocation;
-
-  const hasModal = Boolean(backgroundLocation);
-
-  return (
-    <Container>
-      <HeaderContainer>
-        <Header>안나님에게 복주머니 10개가 전달됐어요!</Header>
-        <SubHeader src={subHeaderImageSource} />
-      </HeaderContainer>
-      <Room />
-
-      {hasModal && <BlackFlim />}
-    </Container>
-  );
-}
+const RoomWrapper = styled.div`
+  flex: 1;
+`;
 
 export default Home;
