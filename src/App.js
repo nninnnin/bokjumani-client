@@ -7,13 +7,14 @@ import Login from "./pages/Login";
 import Select from "./components/Select";
 import Create from "./components/Create";
 import SignUp from "./components/SignUp";
+import BokjumaniDetails from "./components/BokjumaniDetails";
 
 export const GlobalContext = createContext();
 
 const initialState = {
   roomOwner: "",
   bokjumaniList: [],
-  selectedBok: 1,
+  selectedBok: Math.floor(Math.random() * 9) + 1,
 };
 
 function reducer(state, action) {
@@ -36,8 +37,6 @@ function App() {
 
   const hasModal = Boolean(backgroundLocation);
 
-  console.log(location);
-
   const [globalState, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -53,6 +52,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/oauth" element={<Login />} />
           <Route path="/signUp" element={<Login />} />
+          <Route path="/bokjumani/:bokId" element={<Home />} />
           <Route path="/:roomId" element={<Home />} />
         </Routes>
 
@@ -64,6 +64,7 @@ function App() {
             <Route path="/select" element={<Select />} />
             <Route path="/create" element={<Create />} />
             <Route path="/signUp" element={<SignUp />} />
+            <Route path="/bokjumani/:bokId" element={<BokjumaniDetails />} />
           </Routes>
         )}
       </Container>

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import bokjumaniSource1 from "../assets/bokjumani/bok1.svg";
 import bokjumaniSource2 from "../assets/bokjumani/bok2.svg";
@@ -59,11 +60,28 @@ function BokjimanmiList() {
     return bok;
   });
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleBokjumaniClick(bokId) {
+    navigate(`/bokjumani/${bokId}`, {
+      state: { backgroundLocation: location },
+    });
+  }
+
   return (
     <Container>
       <BokjumaniContainer>
         {bokjumaniList.map((bok) => {
-          return <Bokjumani key={bok._id} src={bok.image_url} />;
+          return (
+            <BokjumaniWrapper key={bok._id}>
+              <Bokjumani
+                src={bok.image_url}
+                onClick={() => handleBokjumaniClick(bok._id)}
+              />
+              <BokjumaniAuthor>{bok.author}</BokjumaniAuthor>
+            </BokjumaniWrapper>
+          );
         })}
       </BokjumaniContainer>
     </Container>
@@ -86,14 +104,40 @@ const BokjumaniContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
-const Bokjumani = styled.img`
-  max-height: 7vh;
-  width: auto;
-  position: relative;
-  margin: 0 -10px;
+const BokjumaniWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
   margin-bottom: 10px;
 
+  & > img {
+    height: 50px;
+    width: auto;
+  }
+
+  & > span {
+    flex: 1;
+  }
+`;
+const Bokjumani = styled.img`
+  position: relative;
+  margin: 0 -10px;
+  margin-bottom: 3px;
+
   cursor: pointer;
+`;
+const BokjumaniAuthor = styled.span`
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  padding: 4px;
+  font-size: 0.5em;
+  box-shadow: 0.5px 0.5px 1.5px black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: scale(0.8);
 `;
 
 export default BokjimanmiList;
