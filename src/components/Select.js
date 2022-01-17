@@ -197,7 +197,7 @@ const BokList = styled.div`
 `;
 
 const Bok = styled.img`
-  height: 10vh;
+  height: 85px;
   margin: 1%;
 
   border: ${({ isSelected }) => isSelected && "solid 3px red"};

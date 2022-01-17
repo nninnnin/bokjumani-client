@@ -27,7 +27,10 @@ function Create() {
   async function handleSubmitButtonClick() {
     if (isSubmitDisabled) return;
 
-    if (!name || !greeting) alert("모두 입력해주세요!");
+    if (!name || !greeting) {
+      alert("모두 입력해주세요!");
+      return;
+    }
 
     setIsSubmitDisabled(true);
 
@@ -61,11 +64,14 @@ function Create() {
       // redirect to 원래의 room!
       const redireactionPath = location.state.backgroundLocation.pathname;
 
-      navigate(redireactionPath, { replace: true });
+      navigate(redireactionPath, {
+        replace: true,
+        state: { isBokjumaniCreated: true },
+      });
     } else {
       alert("새로운 복주머니 생성에 실패했습니다..🥲");
 
-      console.log(createResult);
+      console.log(createMessage);
       setIsSubmitDisabled(false);
     }
   }

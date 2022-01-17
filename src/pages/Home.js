@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
@@ -42,7 +42,7 @@ function Home() {
 
     dispatch({ type: "SET_ROOM_OWNER", payload: user.name });
     dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
-  }, []);
+  }, [location.state?.isBokjumaniCreated]);
 
   return (
     <Container>
