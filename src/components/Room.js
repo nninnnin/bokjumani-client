@@ -8,7 +8,7 @@ import BokjimanmiList from "./BokjumaniList";
 import Basket from "./Basket";
 
 import wallpaperSource from "../assets/background/wallpaper.svg";
-import windowSource from "../assets/items/window.gif";
+import windowSource from "../assets/gif/window.gif";
 import cabinetSource from "../assets/items/cabinet.svg";
 import televisionSource from "../assets/items/television.svg";
 import createButtonSource from "../assets/buttons/create.svg";
