@@ -45,7 +45,10 @@ function App() {
         <GlobalStyle />
 
         {/* 기본 routes */}
-        <Routes location={locationState?.backgroundLoation || locationState}>
+        <Routes
+          location={locationState?.backgroundLoation || locationState}
+          basename="/"
+        >
           <Route path="/" element={<Home />} />
           <Route path="/select" element={<Home />} />
           <Route path="/create" element={<Home />} />
@@ -54,7 +57,6 @@ function App() {
           <Route path="/signUp" element={<Login />} />
           <Route path="/bokjumani/:bokId" element={<Home />} />
           <Route path="/:roomId" element={<Home />} />
-          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 
         {hasModal && <BlackFlim />}
