@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
 import axios from "axios";
 
 import Room from "../components/Room";
 import { GlobalContext } from "../App";
 
 function Home() {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const {
@@ -19,14 +17,6 @@ function Home() {
   useEffect(async () => {
     const isSignUpPage = location.pathname.split("/")[1] === "signUp";
     if (isSignUpPage) return;
-
-    const cookie = Cookie.get();
-
-    if (!cookie.user) {
-      navigate("/login");
-
-      return;
-    }
 
     const userRoomId = location.pathname.split("/")[1];
 
