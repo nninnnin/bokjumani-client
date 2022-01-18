@@ -45,10 +45,7 @@ function App() {
         <GlobalStyle />
 
         {/* 기본 routes */}
-        <Routes
-          location={locationState?.backgroundLoation || locationState}
-          basename="/"
-        >
+        <Routes location={locationState?.backgroundLoation || locationState}>
           <Route path="/" element={<Home />} />
           <Route path="/select" element={<Home />} />
           <Route path="/create" element={<Home />} />
