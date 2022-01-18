@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -54,6 +54,7 @@ function App() {
           <Route path="/signUp" element={<Login />} />
           <Route path="/bokjumani/:bokId" element={<Home />} />
           <Route path="/:roomId" element={<Home />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 
         {hasModal && <BlackFlim />}
