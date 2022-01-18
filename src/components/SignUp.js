@@ -52,7 +52,7 @@ function SignUp() {
 
     // 가입시키는 fetch..
     const {
-      data: { result, message },
+      data: { result, newUser, message },
     } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
       kakaoId: location.state.kakaoId,
       username,
@@ -63,6 +63,9 @@ function SignUp() {
 
       // redirect to Home
       navigate("/");
+    } else {
+      const roomUri = newUser.room_uri;
+      navigate(`/${roomUri}`, { state: { isFirstAtHome: true } });
     }
 
     setIsSubmitted(false);

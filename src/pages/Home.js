@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Room from "../components/Room";
@@ -32,7 +32,7 @@ function Home() {
 
     dispatch({ type: "SET_ROOM_OWNER", payload: user.name });
     dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
-  }, [location.state?.isBokjumaniCreated]);
+  }, [location.state?.isBokjumaniCreated, location.state?.isFirstAtHome]);
 
   return (
     <Container>
