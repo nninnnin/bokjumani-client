@@ -122,6 +122,8 @@ function Login() {
   }, []);
 
   function handleLoginButtonClick() {
+    console.log(process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI);
+
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI,
     });
