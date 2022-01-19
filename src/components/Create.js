@@ -111,6 +111,7 @@ function Create() {
           value={name}
           onChange={handleChangeName}
         />
+        <input type="text" />
       </SelectBox>
     </Container>
   );
