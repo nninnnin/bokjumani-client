@@ -81,8 +81,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    user-select: none;
-    -webkit-user-drag: none;
+    /* user-select: none;
+    -webkit-user-drag: none; */
     box-sizing: border-box;
   }
 
