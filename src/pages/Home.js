@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookie from "js-cookie";
 
 import Room from "../components/Room";
 import { GlobalContext } from "../App";
 
 function Home() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     globalState: { roomOwner, bokjumaniList },
@@ -20,6 +22,28 @@ function Home() {
 
     const userRoomId = location.pathname.split("/")[1];
 
+    const cookie = Cookie.get();
+
+    console.log("ri", userRoomId);
+    console.log(cookie);
+
+    // 자기 방으로 보내버리기..
+    if (!userRoomId && cookie.user) {
+      const user = JSON.parse(cookie.user);
+
+      console.log(user);
+
+      navigate(`/${user.room_uri}`, { replace: true });
+
+      return;
+    }
+
+    if (!userRoomId && !cookie.user) {
+      navigate("/login", { replace: true });
+
+      return;
+    }
+
     const {
       data: { result, user, message },
     } = await axios(`${process.env.REACT_APP_SERVER_URL}/room/${userRoomId}`);
@@ -28,6 +52,24 @@ function Home() {
       console.log(message);
 
       alert("잘못된 링크입니다!");
+
+      // 쿠키 날려버리자!
+      function deleteAllCookies() {
+        var cookies = document.cookie.split(";");
+
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var eqPos = cookie.indexOf("=");
+          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+      }
+
+      deleteAllCookies();
+
+      navigate("/login", { replace: true });
+
+      return;
     }
 
     dispatch({ type: "SET_ROOM_OWNER", payload: user.name });

@@ -47,6 +47,9 @@ function SignUp() {
 
     if (!username || !username.length) {
       alert("이름을 입력해주세요!");
+
+      setIsSubmitted(false);
+
       return;
     }
 
@@ -61,14 +64,28 @@ function SignUp() {
     if (result === "failed") {
       alert(message);
 
-      // redirect to Home
+      setIsSubmitted(false);
+
       navigate("/");
     } else {
-      const roomUri = newUser.room_uri;
-      navigate(`/${roomUri}`, { state: { isFirstAtHome: true } });
-    }
+      const kakaoId = newUser.kakao_id;
 
-    setIsSubmitted(false);
+      // cookie에 세팅해주기 위함..
+      const {
+        data: { result, message },
+      } = await axios(`${process.env.REACT_APP_SERVER_URL}/users`, {
+        params: {
+          kakaoId,
+        },
+        withCredentials: true,
+      });
+
+      if (result === "failed") {
+        alert(message);
+      }
+
+      navigate("/", { state: { isFirstAtHome: true }, replace: true });
+    }
   }
 
   return (
@@ -88,8 +105,8 @@ function SignUp() {
         <button
           type="submit"
           onClick={(e) => {
-            handleSubmitButtonClick(e);
             setIsSubmitted(true);
+            handleSubmitButtonClick(e);
           }}
           disabled={isSubmitted}
         >
