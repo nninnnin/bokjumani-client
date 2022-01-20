@@ -83,6 +83,118 @@ function BokjimanmiList() {
             </BokjumaniWrapper>
           );
         })}
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
+        <BokjumaniWrapper>
+          <Bokjumani
+            src={bokjumaniSource1}
+            onClick={() => handleBokjumaniClick(bok._id)}
+          />
+          <BokjumaniAuthor>김안나</BokjumaniAuthor>
+        </BokjumaniWrapper>
       </BokjumaniContainer>
     </Container>
   );
@@ -92,7 +204,7 @@ const Container = styled.div`
   width: 90%;
 
   position: absolute;
-  top: 45%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%);
 `;

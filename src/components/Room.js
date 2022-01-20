@@ -7,29 +7,30 @@ import Cookie from "js-cookie";
 import BokjimanmiList from "./BokjumaniList";
 import Basket from "./Basket";
 
-import wallpaperSource from "../assets/background/wallpaper.svg";
+import wallpaperSource from "../assets/background/wallpaper-myroom.png";
 import windowSource from "../assets/gif/window.gif";
 import cabinetSource from "../assets/items/cabinet.svg";
 import televisionSource from "../assets/items/television.svg";
+import tvAndCabinetSource from "../assets/items/tv-and-cabinet.svg";
 import createButtonSource from "../assets/buttons/create.svg";
 import myHomeButtonSource from "../assets/buttons/my-home.svg";
 
-import calendar16Source from "../assets/calendar/16.svg";
-import calendar17Source from "../assets/calendar/17.svg";
-import calendar18Source from "../assets/calendar/18.svg";
-import calendar19Source from "../assets/calendar/19.svg";
-import calendar20Source from "../assets/calendar/20.svg";
-import calendar21Source from "../assets/calendar/21.svg";
-import calendar22Source from "../assets/calendar/22.svg";
-import calendar23Source from "../assets/calendar/23.svg";
-import calendar24Source from "../assets/calendar/24.svg";
-import calendar25Source from "../assets/calendar/25.svg";
-import calendar26Source from "../assets/calendar/26.svg";
-import calendar27Source from "../assets/calendar/27.svg";
-import calendar28Source from "../assets/calendar/28.svg";
-import calendar29Source from "../assets/calendar/29.svg";
-import calendar30Source from "../assets/calendar/30.svg";
-import calendar31Source from "../assets/calendar/31.svg";
+import calendar16Source from "../assets/calendar/16.png";
+import calendar17Source from "../assets/calendar/17.png";
+import calendar18Source from "../assets/calendar/18.png";
+import calendar19Source from "../assets/calendar/19.png";
+import calendar20Source from "../assets/calendar/20.png";
+import calendar21Source from "../assets/calendar/21.png";
+import calendar22Source from "../assets/calendar/22.png";
+import calendar23Source from "../assets/calendar/23.png";
+import calendar24Source from "../assets/calendar/24.png";
+import calendar25Source from "../assets/calendar/25.png";
+import calendar26Source from "../assets/calendar/26.png";
+import calendar27Source from "../assets/calendar/27.png";
+import calendar28Source from "../assets/calendar/28.png";
+import calendar29Source from "../assets/calendar/29.png";
+import calendar30Source from "../assets/calendar/30.png";
+import calendar31Source from "../assets/calendar/31.png";
 
 const calendarSourceList = {
   calendar16Source,
@@ -52,43 +53,34 @@ const calendarSourceList = {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  aspect-ratio: 500 / 776;
 
   position: relative;
 
   background-image: url(${wallpaperSource});
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
 `;
 const Window = styled.img`
+  width: 47%;
+  position: absolute;
+  top: 17%;
+  left: 18%;
+`;
+const TVandCabinet = styled.img`
   width: 50%;
-
   position: absolute;
-  top: 5%;
-  left: 15%;
-`;
-const Cabinet = styled.img`
-  width: 55%;
-
-  position: absolute;
-  top: 30%;
-  left: 2%;
-`;
-const Television = styled.img`
-  width: 30%;
-
-  position: absolute;
-  top: 20%;
+  top: 34.5%;
   left: 5%;
 `;
 const Calendar = styled.img`
-  width: 21%;
-
+  width: 18%;
   position: absolute;
-  top: 4%;
-  right: 8%;
+  top: 23%;
+  right: 12%;
 `;
 
 const ButtonSection = styled.div`
@@ -115,15 +107,6 @@ const CreateButton = styled(ButtonImage)`
 const MyHomeButton = styled(ButtonImage)`
   width: 100%;
 `;
-const MyRoomLinkSharingButton = styled.button`
-  position: absolute;
-  left: 50%;
-  bottom: 3%;
-  transform: translate(-50%);
-
-  padding: 10px;
-  opacity: 0.9;
-`;
 
 function Room() {
   const navigate = useNavigate();
@@ -143,39 +126,19 @@ function Room() {
     }
   }
 
-  async function handleMyRoomLinkSharingButtonClick() {
-    const roomUri = window.location.host + location.pathname;
-
-    if (navigator.share) {
-      navigator.share({
-        title: "복주머니",
-        text: "내 방에 놀러와!",
-        url: roomUri,
-      });
-    }
-
-    navigator.clipboard.writeText(roomUri);
-    const readText = await navigator.clipboard.readText();
-
-    if (readText === roomUri) {
-      alert("내 방 링크가 복사되었어요!");
-    }
-  }
-
   const calendarSource =
     calendarSourceList[`calendar${new Date().getDate()}Source`];
 
   return (
     <Container>
       <Window src={windowSource} />
-      <Cabinet src={cabinetSource} />
-      <Television src={televisionSource} />
       <Basket />
+      <TVandCabinet src={tvAndCabinetSource} />
       <Calendar src={calendarSource ? calendarSource : calendar16Source} />
 
       <BokjimanmiList />
 
-      {!isMyHome ? (
+      {!isMyHome && (
         <ButtonSection>
           <Link
             to="/select"
@@ -190,10 +153,6 @@ function Room() {
             onClick={handleMyHomeButtonClick}
           />
         </ButtonSection>
-      ) : (
-        <MyRoomLinkSharingButton onClick={handleMyRoomLinkSharingButtonClick}>
-          내 방 링크 공유하기
-        </MyRoomLinkSharingButton>
       )}
     </Container>
   );

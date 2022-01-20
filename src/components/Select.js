@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer } from "react";
+import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -12,6 +12,7 @@ import bok7Source from "../assets/bokjumani/selective/bok7.svg";
 import bok8Source from "../assets/bokjumani/selective/bok8.svg";
 import bok9Source from "../assets/bokjumani/selective/bok9.svg";
 
+import backgroundSource from "../assets/background/modal-background-select.png";
 import backButtonSource from "../assets/buttons/back.svg";
 import nextButtonSource from "../assets/buttons/next.svg";
 
@@ -78,10 +79,9 @@ function Create() {
       </ModalHeader>
 
       <SelectBox>
-        <Header>🧧{roomOwner} 님에게🧧</Header>
+        <Header>{roomOwner} 님에게</Header>
         <SubHeader>
-          선물할 복주머니를 골라주세요!
-          <span onClick={handleRandomSelectionButtonClick}>랜덤 선택</span>
+          {/* <span onClick={handleRandomSelectionButtonClick}>랜덤 선택</span> */}
         </SubHeader>
         <BokList>
           {bokSourceList.map((bokSource, index) => {
@@ -104,9 +104,7 @@ function Create() {
 
 const Container = styled.div`
   width: 85%;
-  height: 80%;
-  border: 3px solid #2f2118;
-  border-radius: 10px;
+  aspect-ratio: 95 / 150;
 
   position: fixed;
   top: 50%;
@@ -117,9 +115,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: #fff;
-  background-color: #4b3729;
-  overflow: hidden;
+  background-image: url(${backgroundSource});
+  background-position: top;
+  background-size: contain;
 `;
 
 const ModalHeader = styled.div`
@@ -144,15 +142,18 @@ const NextButton = styled(ButtonImage)`
 `;
 
 const SelectBox = styled.div`
-  background-color: #f0e8e0;
   width: 100%;
   height: 90%;
-  border-top: 3px solid #2f2118;
 
   margin-top: auto;
 `;
 
 const Header = styled.h2`
+  position: absolute;
+  top: 0.5%;
+  left: 50%;
+  transform: translate(-50%);
+
   font-size: 5vw;
   font-family: "BMEULJIRO";
   font-weight: 500;
@@ -190,6 +191,9 @@ const SubHeader = styled.h4`
 `;
 
 const BokList = styled.div`
+  position: absolute;
+  top: 25.8%;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -197,10 +201,10 @@ const BokList = styled.div`
 `;
 
 const Bok = styled.img`
-  height: 85px;
+  width: 28%;
   margin: 1%;
 
-  border: ${({ isSelected }) => isSelected && "solid 3px red"};
+  opacity: ${({ isSelected }) => (isSelected ? 1 : 0.5)};
   border-radius: ${({ isSelected }) => (isSelected ? "9px" : "7px")};
 
   cursor: pointer;

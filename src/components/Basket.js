@@ -3,14 +3,15 @@ import styled from "styled-components";
 
 import BasketSource from "../assets/items/basket.svg";
 import BasketCoverSource from "../assets/items/basket-cover.svg";
-import BokjumaniSource1 from "../assets/bokjumani/bok1.svg";
+import BokjumaniSource5 from "../assets/bokjumani/bok5.svg";
+import BokjumaniSource6 from "../assets/bokjumani/bok6.svg";
+import BokjumaniSource9 from "../assets/bokjumani/bok9.svg";
 
 const Container = styled.div`
-  width: 40%;
-
+  width: 34%;
   position: absolute;
-  right: 0;
-  top: 40%;
+  top: 59%;
+  right: 4%;
 `;
 const Basket = styled.img`
   width: 100%;
@@ -28,10 +29,11 @@ const BasketCover = styled.img`
   z-index: 1;
 `;
 const BokjumaniWrapper = styled.div`
-  transform: translate(${({ spreadRatio }) => spreadRatio * 0.5}%);
+  transform: translate(${({ spreadRatio }) => spreadRatio * 0.8}%);
 `;
 const Bokjumani = styled.img`
-  width: 40%;
+  height: 50px;
+  width: 75px;
   position: absolute;
   bottom: ${({ order }) => (order === 2 ? "4vh" : "1vh")};
   right: ${({ order, spreadRatio }) => order * spreadRatio}%;
@@ -41,7 +43,7 @@ const Bokjumani = styled.img`
 `;
 
 function BasketComponent() {
-  const spreadRatio = 20;
+  const spreadRatio = 17;
 
   return (
     <Container>
@@ -50,19 +52,20 @@ function BasketComponent() {
 
       <BokjumaniWrapper spreadRatio={spreadRatio}>
         <Bokjumani
-          src={BokjumaniSource1}
+          src={BokjumaniSource9}
           order={3}
           spreadRatio={spreadRatio}
           zIndex={2}
+          style={{ marginRight: "6px" }}
         />
         <Bokjumani
-          src={BokjumaniSource1}
+          src={BokjumaniSource6}
           order={2}
           spreadRatio={spreadRatio}
           zIndex={1}
         />
         <Bokjumani
-          src={BokjumaniSource1}
+          src={BokjumaniSource5}
           order={1}
           spreadRatio={spreadRatio}
           zIndex={3}

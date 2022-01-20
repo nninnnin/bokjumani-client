@@ -100,9 +100,8 @@ const GlobalStyle = createGlobalStyle`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 360px;
-  max-height: 650px;
-  background-color: #a7845f;
+  /* max-width: 360px; */
+  /* max-height: 650px; */
 
   padding: 1%;
 

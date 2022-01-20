@@ -6,6 +6,9 @@ import Cookie from "js-cookie";
 
 import Room from "../components/Room";
 import { GlobalContext } from "../App";
+import signBoardBackgroundSource from "../assets/background/signboard.png";
+import inventoryButtonSource from "../assets/buttons/inventory-button.svg";
+import linkShareButtonSource from "../assets/buttons/link-share-button.svg";
 
 function Home() {
   const location = useLocation();
@@ -24,24 +27,22 @@ function Home() {
 
     const cookie = Cookie.get();
 
-    console.log("ri", userRoomId);
-    console.log(cookie);
+    // "/"
+    if (!userRoomId) {
+      // logged in
+      if (cookie.user) {
+        const user = JSON.parse(cookie.user);
+        // 방으로 보낸다
+        navigate(`/${user.room_uri}`, { replace: true });
 
-    // 자기 방으로 보내버리기..
-    if (!userRoomId && cookie.user) {
-      const user = JSON.parse(cookie.user);
+        return;
+      } else {
+        // not logged in
+        // 로그인 페이지로
+        navigate("/login", { replace: true });
 
-      console.log(user);
-
-      navigate(`/${user.room_uri}`, { replace: true });
-
-      return;
-    }
-
-    if (!userRoomId && !cookie.user) {
-      navigate("/login", { replace: true });
-
-      return;
+        return;
+      }
     }
 
     const {
@@ -76,13 +77,42 @@ function Home() {
     dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
   }, [location.state?.isBokjumaniCreated, location.state?.isFirstAtHome]);
 
+  async function handleMyRoomLinkSharingButtonClick() {
+    const roomUri = window.location.host + location.pathname;
+
+    if (navigator.share) {
+      navigator.share({
+        title: "복주머니",
+        text: "내 방에 놀러와!",
+        url: roomUri,
+      });
+    }
+
+    navigator.clipboard.writeText(roomUri);
+    const readText = await navigator.clipboard.readText();
+
+    if (readText === roomUri) {
+      alert("내 방 링크가 복사되었어요!");
+    }
+  }
+
   return (
     <Container>
-      <HeaderWrapper>
-        <Header>
-          {roomOwner}님에게 복주머니 {bokjumaniList.length}개 가 전달됐어요!
-        </Header>
-      </HeaderWrapper>
+      <UpperWrapper>
+        <HeaderWrapper>
+          <Header>
+            {roomOwner}님에게 복주머니 {bokjumaniList.length}개 가 전달됐어요
+          </Header>
+        </HeaderWrapper>
+        <ButtonSection>
+          <InventoryButton src={inventoryButtonSource} />
+          <MyRoomLinkSharingButton
+            src={linkShareButtonSource}
+            onClick={handleMyRoomLinkSharingButtonClick}
+          />
+        </ButtonSection>
+      </UpperWrapper>
+
       <RoomWrapper>
         <Room />
       </RoomWrapper>
@@ -96,22 +126,37 @@ const Container = styled.div`
 
   border: solid 5px #5e3618;
   border-radius: 10px;
-  padding: 5% 3%;
+  padding: 1.5%;
 
   background-color: #976e3d;
 
   display: flex;
   flex-direction: column;
 `;
+
+const UpperWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
 const HeaderWrapper = styled.div`
   /* margin: 3% 0; */
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 7px;
+
+  background-image: url(${signBoardBackgroundSource});
+  background-size: contain;
+  background-position: top;
+  background-repeat: no-repeat;
 `;
 const Header = styled.marquee`
-  width: 90%;
   position: relative;
   left: 50%;
   transform: translate(-50%);
-  background-color: black;
+  /* background-color: black; */
   border-radius: 5px;
   color: yellow;
   line-height: 2em;
@@ -119,8 +164,24 @@ const Header = styled.marquee`
   font-family: "BMEULJIRO";
   font-size: 2.6vh;
   word-break: keep-all;
+`;
 
-  padding-top: 3px;
+const ButtonSection = styled.div`
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+`;
+
+const InventoryButton = styled.img`
+  width: 40%;
+  margin: 4px 1%;
+  margin-bottom: 21px;
+`;
+const MyRoomLinkSharingButton = styled.img`
+  width: 40%;
+  margin: 4px 1%;
+  margin-bottom: 21px;
 `;
 
 const RoomWrapper = styled.div`

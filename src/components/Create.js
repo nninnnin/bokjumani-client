@@ -4,6 +4,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+import backgroundSource from "../assets/background/modal-background-create.png";
 import backButtonSource from "../assets/buttons/back.svg";
 import submitButtonSource from "../assets/buttons/submit.svg";
 import { GlobalContext } from "../App";
@@ -94,8 +95,7 @@ function Create() {
       </ModalHeader>
 
       <SelectBox>
-        <Header>🧧{roomOwner} 님에게🧧</Header>
-        <SubHeader>새해 덕담을 나눠주세요!</SubHeader>
+        <Header>{roomOwner} 님에게</Header>
         <Textarea
           value={greeting}
           onChange={(e) => setGreeting(e.target.value)}
@@ -118,9 +118,7 @@ function Create() {
 
 const Container = styled.div`
   width: 85%;
-  height: 80%;
-  border: 3px solid #2f2118;
-  border-radius: 10px;
+  aspect-ratio: 95 / 150;
 
   position: fixed;
   top: 50%;
@@ -131,9 +129,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: #fff;
-  background-color: #4b3729;
-  overflow: hidden;
+  background-image: url(${backgroundSource});
+  background-position: top;
+  background-size: contain;
 `;
 
 const ModalHeader = styled.div`
@@ -158,15 +156,18 @@ const SubmitButton = styled(ButtonImage)`
 `;
 
 const SelectBox = styled.div`
-  background-color: #f0e8e0;
   width: 100%;
   height: 90%;
-  border-top: 3px solid #2f2118;
 
   margin-top: auto;
 `;
 
 const Header = styled.h2`
+  position: absolute;
+  top: 0.5%;
+  left: 50%;
+  transform: translate(-50%);
+
   font-size: 5vw;
   font-family: "BMEULJIRO";
   font-weight: 500;
@@ -190,31 +191,34 @@ const SubHeader = styled.h4`
 
 const Textarea = styled.textarea`
   width: 85%;
-  background-color: #e1dad4;
+  height: 218px;
+
+  background-color: transparent;
   border: none;
   border-radius: 5px;
-  box-shadow: inset 0 0 8px #afa59e;
   resize: none;
   padding: 5%;
 
   position: relative;
+  top: 19.3%;
   left: 50%;
   transform: translate(-50%);
 `;
 
 const NameInput = styled.input`
-  width: 70%;
-  background-color: #e1dad4;
-  border: none;
+  width: 56%;
   border-radius: 5px;
-  box-shadow: inset 0 0 8px #afa59e;
+  border: none;
+  background-color: transparent;
 
   position: relative;
-  left: 50%;
+  top: 22.9%;
+  left: 50.5%;
   transform: translate(-50%);
 
   margin-top: 5%;
-  padding: 5%;
+  padding: 2%;
+  font-size: 0.8em;
   font-family: "BMEULJIRO";
   text-align: center;
 `;
