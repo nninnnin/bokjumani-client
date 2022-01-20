@@ -142,21 +142,22 @@ const UpperWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-  /* margin: 3% 0; */
   width: 90%;
   margin: 0 auto;
-  padding: 0 7px;
+  padding: 0 2%;
+  padding-top: 1%;
+
+  position: relative;
 
   background-image: url(${signBoardBackgroundSource});
   background-size: contain;
-  background-position: top;
+  background-position: center;
   background-repeat: no-repeat;
 `;
 const Header = styled.marquee`
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  /* background-color: black; */
+  width: 100%;
+  padding: 5px;
+
   border-radius: 5px;
   color: yellow;
   line-height: 2em;

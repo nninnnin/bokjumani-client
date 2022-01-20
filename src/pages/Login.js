@@ -60,7 +60,10 @@ function Login() {
   const location = useLocation();
 
   useEffect(async () => {
-    if (!(location.pathname === "/oauth")) return;
+    const isRedirectedOauthPage = location.pathname === "/oauth";
+
+    // 리다이렉션 페이지가 아니라 로그인 페이지로 온 것이라면 return
+    if (!isRedirectedOauthPage) return;
 
     // 카카오톡의 인가코드를 가져온다
     const authCode = location.search.split("?code=")[1];
@@ -122,8 +125,6 @@ function Login() {
   }, []);
 
   function handleLoginButtonClick() {
-    console.log(process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI);
-
     Kakao.Auth.authorize({
       redirectUri: process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI,
     });

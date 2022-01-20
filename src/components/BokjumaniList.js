@@ -83,7 +83,7 @@ function BokjimanmiList() {
             </BokjumaniWrapper>
           );
         })}
-        <BokjumaniWrapper>
+        {/* <BokjumaniWrapper>
           <Bokjumani
             src={bokjumaniSource1}
             onClick={() => handleBokjumaniClick(bok._id)}
@@ -187,14 +187,7 @@ function BokjimanmiList() {
             onClick={() => handleBokjumaniClick(bok._id)}
           />
           <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
+        </BokjumaniWrapper> */}
       </BokjumaniContainer>
     </Container>
   );
