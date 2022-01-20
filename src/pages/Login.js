@@ -72,7 +72,7 @@ function Login() {
     let params = {
       grant_type: "authorization_code",
       client_id: process.env.REACT_APP_KAKAO_REST_API_KEY,
-      redirect_uri: `${window.location.origin}/oauth`,
+      redirect_uri: `${process.env.REACT_APP_KAKAO_LOGIN_REDIRECT_URI}`,
       code: authCode,
     };
 
