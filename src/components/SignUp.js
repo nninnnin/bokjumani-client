@@ -72,7 +72,7 @@ function SignUp() {
 
       // cookie에 세팅해주기 위함..
       const {
-        data: { result, message },
+        data: { result, user, message },
       } = await axios(`${process.env.REACT_APP_SERVER_URL}/users`, {
         params: {
           kakaoId,
@@ -84,7 +84,10 @@ function SignUp() {
         alert(message);
       }
 
-      navigate("/", { state: { isFirstAtHome: true }, replace: true });
+      navigate(`/${user.room_uri}`, {
+        state: { isFirstAtHome: true },
+        replace: true,
+      });
     }
   }
 
