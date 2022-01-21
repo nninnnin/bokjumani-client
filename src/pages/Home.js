@@ -98,6 +98,12 @@ function Home() {
     }
   }
 
+  const cookie = Cookie.get();
+
+  const isMyRoom =
+    cookie.user &&
+    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
+
   return (
     <Container>
       <UpperWrapper>
@@ -106,13 +112,15 @@ function Home() {
             {roomOwner}님에게 복주머니 {bokjumaniList.length}개 가 전달됐어요
           </Header>
         </HeaderWrapper>
-        <ButtonSection>
-          <InventoryButton src={inventoryButtonSource} />
-          <MyRoomLinkSharingButton
-            src={linkShareButtonSource}
-            onClick={handleMyRoomLinkSharingButtonClick}
-          />
-        </ButtonSection>
+        {isMyRoom && (
+          <ButtonSection>
+            <InventoryButton src={inventoryButtonSource} />
+            <MyRoomLinkSharingButton
+              src={linkShareButtonSource}
+              onClick={handleMyRoomLinkSharingButtonClick}
+            />
+          </ButtonSection>
+        )}
       </UpperWrapper>
 
       <RoomWrapper>

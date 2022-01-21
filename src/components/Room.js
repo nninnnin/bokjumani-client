@@ -115,7 +115,7 @@ function Room() {
   const cookie = Cookie.get();
 
   // 내 집 => 현재 로그인한 유저(쿠키의 유저)의 room id와 지금 보고있는 location room id가 일치
-  const isMyHome =
+  const isMyRoom =
     cookie.user &&
     JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
 
@@ -139,7 +139,7 @@ function Room() {
 
       <BokjimanmiList />
 
-      {!isMyHome && (
+      {!isMyRoom && (
         <ButtonSection>
           <Link
             to="/select"
