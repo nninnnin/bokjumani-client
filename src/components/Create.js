@@ -117,8 +117,8 @@ function Create() {
 }
 
 const Container = styled.div`
-  width: 306px;
-  height: 483.16px;
+  width: 342px;
+  height: 540.16px;
 
   position: fixed;
   top: 50%;
