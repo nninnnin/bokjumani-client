@@ -54,12 +54,13 @@ const calendarSourceList = {
 
 const Container = styled.div`
   width: 340px;
-  height: 500px;
+  /* height: 500px; */
+  height: ${({ isMyRoom }) => (isMyRoom ? "500px" : "560px")};
 
   position: relative;
 
   background-image: url(${brickSource});
-  background-position: bottom;
+  background-position: bottom -21px right 0px;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
@@ -72,25 +73,25 @@ const Wallpaper = styled.img`
 
   position: absolute;
   top: 0;
-  height: 286px;
+  height: ${({ isMyRoom }) => (isMyRoom ? "286px" : "248px")};
   width: 100%;
 `;
 const Window = styled.img`
   width: 52%;
   position: absolute;
-  top: 14%;
+  top: ${({ isMyRoom }) => (isMyRoom ? "14%" : "6%")};
   left: 13%;
 `;
 const TVandCabinet = styled.img`
   width: 50%;
   position: absolute;
-  top: 34.5%;
+  top: ${({ isMyRoom }) => (isMyRoom ? "34.5%" : "23.5%")};
   left: 5%;
 `;
 const Calendar = styled.img`
   width: 18%;
   position: absolute;
-  top: 23%;
+  top: ${({ isMyRoom }) => (isMyRoom ? "23%" : "14%")};
   right: 13%;
 `;
 
@@ -110,13 +111,14 @@ const ButtonSection = styled.div`
 
 const ButtonImage = styled.img`
   cursor: pointer;
+  align-self: center;
 `;
 
 const CreateButton = styled(ButtonImage)`
-  width: 100%;
+  width: 85%;
 `;
 const MyHomeButton = styled(ButtonImage)`
-  width: 100%;
+  width: 85%;
 `;
 
 function Room() {
@@ -135,18 +137,25 @@ function Room() {
 
       return;
     }
+
+    const roomUri = JSON.parse(cookie.user).room_uri;
+
+    navigate(`/${roomUri}`, { replace: true, state: { isFirstAtHome: true } });
   }
 
   const calendarSource =
     calendarSourceList[`calendar${new Date().getDate()}Source`];
 
   return (
-    <Container>
-      <Wallpaper />
-      <Window src={windowSource} />
+    <Container isMyRoom={isMyRoom}>
+      <Wallpaper isMyRoom={isMyRoom} />
+      <Window src={windowSource} isMyRoom={isMyRoom} />
       <Basket />
-      <TVandCabinet src={tvAndCabinetSource} />
-      <Calendar src={calendarSource ? calendarSource : calendar16Source} />
+      <TVandCabinet src={tvAndCabinetSource} isMyRoom={isMyRoom} />
+      <Calendar
+        src={calendarSource ? calendarSource : calendar16Source}
+        isMyRoom={isMyRoom}
+      />
 
       <BokjimanmiList />
 
@@ -157,6 +166,7 @@ function Room() {
             state={{
               backgroundLocation: location,
             }}
+            style={{ textAlign: "center" }}
           >
             <CreateButton src={createButtonSource} />
           </Link>

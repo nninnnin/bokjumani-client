@@ -1,5 +1,7 @@
+import { last } from "lodash";
 import React from "react";
 import styled from "styled-components";
+import Cookie from "js-cookie";
 
 import BasketSource from "../assets/items/basket.svg";
 import BasketCoverSource from "../assets/items/basket-cover.svg";
@@ -11,6 +13,7 @@ const Container = styled.div`
   width: 34%;
   position: absolute;
   top: 60.43%;
+  top: ${({ isMyRoom }) => (isMyRoom ? "60.43%" : "46.5%")};
   right: 4%;
 `;
 const Basket = styled.img`
@@ -42,11 +45,17 @@ const Bokjumani = styled.img`
   cursor: pointer;
 `;
 
+const cookie = Cookie.get();
+
 function BasketComponent() {
   const spreadRatio = 17;
 
+  const isMyRoom =
+    cookie.user &&
+    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
+
   return (
-    <Container>
+    <Container isMyRoom={isMyRoom}>
       <Basket src={BasketSource} />
       <BasketCover src={BasketCoverSource} />
 

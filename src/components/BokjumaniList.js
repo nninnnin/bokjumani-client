@@ -1,6 +1,8 @@
+import { last } from "lodash";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
+import Cookie from "js-cookie";
 
 import bokjumaniSource1 from "../assets/bokjumani/bok1.svg";
 import bokjumaniSource2 from "../assets/bokjumani/bok2.svg";
@@ -13,6 +15,12 @@ import bokjumaniSource8 from "../assets/bokjumani/bok1.svg";
 import bokjumaniSource9 from "../assets/bokjumani/bok1.svg";
 
 import { GlobalContext } from "../App";
+
+const cookie = Cookie.get();
+
+const isMyRoom =
+  cookie.user &&
+  JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
 
 function BokjimanmiList() {
   let {
@@ -70,7 +78,7 @@ function BokjimanmiList() {
   }
 
   return (
-    <Container>
+    <Container isMyRoom={isMyRoom}>
       <BokjumaniContainer>
         {bokjumaniList.map((bok) => {
           return (
@@ -197,7 +205,7 @@ const Container = styled.div`
   width: 90%;
 
   position: absolute;
-  top: 65%;
+  top: ${({ isMyRoom }) => (isMyRoom ? "65%" : "50%")};
   left: 50%;
   transform: translate(-50%);
 `;
