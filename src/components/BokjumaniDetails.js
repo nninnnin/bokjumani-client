@@ -110,8 +110,8 @@ function BokjumaniDetails() {
 }
 
 const Container = styled.div`
-  width: 85%;
-  aspect-ratio: 9.5 / 15;
+  width: 306px;
+  height: 483.16px;
 
   position: fixed;
   top: 50%;

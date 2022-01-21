@@ -10,7 +10,7 @@ import BokjumaniSource9 from "../assets/bokjumani/bok9.svg";
 const Container = styled.div`
   width: 34%;
   position: absolute;
-  top: 59%;
+  top: 60.43%;
   right: 4%;
 `;
 const Basket = styled.img`

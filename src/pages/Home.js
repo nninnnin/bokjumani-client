@@ -161,6 +161,7 @@ const HeaderWrapper = styled.div`
   padding-top: 1%;
 
   position: relative;
+  top: 6%;
 
   background-image: url(${signBoardBackgroundSource});
   background-size: contain;

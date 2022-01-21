@@ -7,7 +7,8 @@ import Cookie from "js-cookie";
 import BokjimanmiList from "./BokjumaniList";
 import Basket from "./Basket";
 
-import wallpaperSource from "../assets/background/wallpaper-myroom.png";
+import brickSource from "../assets/background/brick.png";
+import wallpaperSource from "../assets/background/wallpaper.png";
 import windowSource from "../assets/gif/window.gif";
 import cabinetSource from "../assets/items/cabinet.svg";
 import televisionSource from "../assets/items/television.svg";
@@ -52,24 +53,33 @@ const calendarSourceList = {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 70vh;
-
-  /* aspect-ratio: 500 / 776; */
+  width: 340px;
+  height: 500px;
 
   position: relative;
 
-  background-image: url(${wallpaperSource});
-  background-position: top;
+  background-image: url(${brickSource});
+  background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
+
+  overflow: hidden;
+`;
+const Wallpaper = styled.img`
+  background-image: url(${wallpaperSource});
+  background-size: cover;
+
+  position: absolute;
+  top: 0;
+  height: 286px;
+  width: 100%;
 `;
 const Window = styled.img`
-  width: 47%;
+  width: 52%;
   position: absolute;
-  top: 17%;
-  left: 18%;
+  top: 14%;
+  left: 13%;
 `;
 const TVandCabinet = styled.img`
   width: 50%;
@@ -81,7 +91,7 @@ const Calendar = styled.img`
   width: 18%;
   position: absolute;
   top: 23%;
-  right: 12%;
+  right: 13%;
 `;
 
 const ButtonSection = styled.div`
@@ -132,6 +142,7 @@ function Room() {
 
   return (
     <Container>
+      <Wallpaper />
       <Window src={windowSource} />
       <Basket />
       <TVandCabinet src={tvAndCabinetSource} />

@@ -117,8 +117,8 @@ function Create() {
 }
 
 const Container = styled.div`
-  width: 85%;
-  aspect-ratio: 95 / 150;
+  width: 306px;
+  height: 483.16px;
 
   position: fixed;
   top: 50%;
