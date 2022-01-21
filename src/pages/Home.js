@@ -101,8 +101,8 @@ function Home() {
   const cookie = Cookie.get();
 
   const isMyRoom =
-    cookie.user &&
-    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
+    cookie?.user &&
+    JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
 
   return (
     <Container>
