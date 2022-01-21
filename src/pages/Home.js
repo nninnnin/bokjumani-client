@@ -86,6 +86,8 @@ function Home() {
         text: "내 방에 놀러와!",
         url: roomUri,
       });
+
+      return;
     }
 
     navigator.clipboard.writeText(roomUri);
