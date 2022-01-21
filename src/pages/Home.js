@@ -78,7 +78,7 @@ function Home() {
   }, [location.state?.isBokjumaniCreated, location.state?.isFirstAtHome]);
 
   async function handleMyRoomLinkSharingButtonClick() {
-    const roomUri = window.location.host + location.pathname;
+    const roomUri = location.pathname;
 
     if (navigator.share) {
       navigator.share({
