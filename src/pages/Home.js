@@ -22,7 +22,9 @@ function Home() {
 
   useEffect(async () => {
     const isSignUpPage = location.pathname.split("/")[1] === "signUp";
-    if (isSignUpPage) return;
+    const isSelectionPage = location.pathname.split("/")[1] === "select";
+
+    if (isSignUpPage || isSelectionPage) return;
 
     const userRoomId = location.pathname.split("/")[1];
 

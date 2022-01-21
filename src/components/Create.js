@@ -63,9 +63,9 @@ function Create() {
 
     if (createResult === "ok" && newBokjumani) {
       // redirect to 원래의 room!
-      const redireactionPath = location.state.backgroundLocation.pathname;
+      const redirectionPath = location.state.backgroundLocation.pathname;
 
-      navigate(redireactionPath, {
+      navigate(redirectionPath, {
         replace: true,
         state: { isBokjumaniCreated: true },
       });
