@@ -205,7 +205,7 @@ const Bok = styled.img`
   margin: 1%;
 
   opacity: ${({ isSelected }) => (isSelected ? 1 : 0.5)};
-  border-radius: ${({ isSelected }) => (isSelected ? "9px" : "7px")};
+  border-radius: ${({ isSelected }) => (isSelected ? "5px" : "7px")};
 
   cursor: pointer;
 `;

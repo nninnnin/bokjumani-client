@@ -120,6 +120,8 @@ const BlackFlim = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+
+  border-radius: 9.5px;
 `;
 
 export default App;
