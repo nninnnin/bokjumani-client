@@ -191,7 +191,7 @@ const SubHeader = styled.h4`
 
 const Textarea = styled.textarea`
   width: 85%;
-  height: 218px;
+  height: 226px;
 
   background-color: transparent;
   border: none;
