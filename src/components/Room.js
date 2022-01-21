@@ -53,8 +53,9 @@ const calendarSourceList = {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  aspect-ratio: 500 / 776;
+  height: 70vh;
+
+  /* aspect-ratio: 500 / 776; */
 
   position: relative;
 
