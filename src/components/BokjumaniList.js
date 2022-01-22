@@ -18,16 +18,14 @@ import { GlobalContext } from "../App";
 
 const cookie = Cookie.get();
 
-const isMyRoom =
-  cookie.user &&
-  JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
-
 function BokjimanmiList() {
   let {
     globalState: { bokjumaniList },
   } = useContext(GlobalContext);
 
-  bokjumaniList.map((bok) => {
+  const slicedBokList = bokjumaniList.slice(0, 16);
+
+  slicedBokList.map((bok) => {
     let source;
 
     switch (bok.type) {
@@ -77,8 +75,6 @@ function BokjimanmiList() {
     });
   }
 
-  const cookie = Cookie.get();
-
   const isMyRoom =
     cookie.user &&
     JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
@@ -86,7 +82,7 @@ function BokjimanmiList() {
   return (
     <Container isMyRoom={isMyRoom}>
       <BokjumaniContainer>
-        {bokjumaniList.map((bok) => {
+        {slicedBokList.map((bok) => {
           return (
             <BokjumaniWrapper key={bok._id}>
               <Bokjumani

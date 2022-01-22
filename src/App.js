@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
