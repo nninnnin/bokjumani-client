@@ -207,7 +207,7 @@ const Container = styled.div`
   width: 90%;
 
   position: absolute;
-  top: ${({ isMyRoom }) => (isMyRoom ? "65%" : "50%")};
+  top: ${({ isMyRoom }) => (isMyRoom ? "64%" : "50%")};
   left: 50%;
   transform: translate(-50%);
 `;
@@ -247,6 +247,7 @@ const BokjumaniAuthor = styled.span`
   padding: 4px;
   font-size: 0.5em;
   box-shadow: 0.5px 0.5px 1.5px black;
+  width: 35px;
 
   display: flex;
   justify-content: center;
