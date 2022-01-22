@@ -1,5 +1,5 @@
 import { last } from "lodash";
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -22,6 +22,8 @@ function BokjumaniDetails() {
   const {
     globalState: { bokjumaniList },
   } = useContext(GlobalContext);
+
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const location = useLocation();
   const bokjumaniId = last(location.pathname.split("/"));
@@ -76,7 +78,11 @@ function BokjumaniDetails() {
       <Author>{author}</Author>
 
       <BokjumaniWrapper>
-        <BokjumaniImage src={source} />
+        <BokjumaniImage
+          src={source}
+          onLoad={() => setIsLoaded(true)}
+          isLoaded={isLoaded}
+        />
         <BokjumaniTag>{author}</BokjumaniTag>
       </BokjumaniWrapper>
 
@@ -145,8 +151,9 @@ const BokjumaniWrapper = styled.div`
   align-items: center;
 `;
 const BokjumaniImage = styled.img`
-  width: 50%;
-  margin-bottom: 3px;
+  visibility: ${({ isLoaded }) => (isLoaded ? 1 : 0)};
+  height: 85px;
+  margin-bottom: 7px;
 `;
 const BokjumaniTag = styled.span`
   background-color: rgba(255, 255, 255, 0.8);
@@ -159,7 +166,7 @@ const BokjumaniTag = styled.span`
   justify-content: center;
   align-items: center;
 
-  transform: scale(0.8);
+  width: 50px;
 `;
 
 export default BokjumaniDetails;
