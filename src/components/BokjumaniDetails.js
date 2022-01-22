@@ -151,12 +151,12 @@ const BokjumaniWrapper = styled.div`
   align-items: center;
 `;
 const BokjumaniImage = styled.img`
-  visibility: ${({ isLoaded }) => (isLoaded ? 1 : 0)};
+  visibility: ${({ isLoaded }) => (isLoaded ? "visible" : "hidden")};
   height: 85px;
   margin-bottom: 7px;
 `;
 const BokjumaniTag = styled.span`
-  visibility: ${({ isLoaded }) => (isLoaded ? 1 : 0)};
+  visibility: ${({ isLoaded }) => (isLoaded ? "visible" : "hidden")};
 
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 3px;
