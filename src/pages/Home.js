@@ -109,6 +109,8 @@ function Home() {
     cookie?.user &&
     JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
 
+  console.log("Home rendered");
+
   return (
     <Container>
       <UpperWrapper>
@@ -207,4 +209,4 @@ const RoomWrapper = styled.div`
   flex: 1;
 `;
 
-export default Home;
+export default React.memo(Home);

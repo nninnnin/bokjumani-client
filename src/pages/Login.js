@@ -4,7 +4,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 // axios.defaults.withCredentials = true;
 
-import backgroundSource from "../assets/login/background.svg";
+import backgroundSource from "../assets/background/background-login.png";
 import buttonSource from "../assets/login/kakao-button.svg";
 import advertisementSource from "../assets/login/advertisement.svg";
 import backButtonSource from "../assets/buttons/back.svg";
@@ -13,20 +13,14 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  border: solid 5px #5e3618;
-  border-radius: 10px;
-  aspect-ratio: 9 / 15.8;
-
-  /* background-image: url(${backgroundSource});
-  background-repeat: no-repeat; */
-
-  background-color: #976e3d;
+  background-image: url(${backgroundSource});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 `;
 
 const LoginButton = styled.img`
-  width: 70%;
-  border-radius: 10px;
-  box-shadow: 0px 0px 0px 5px brown;
+  width: 73%;
 
   position: absolute;
   top: 48.5%;
@@ -49,8 +43,8 @@ const BackButton = styled.img`
   width: 18%;
 
   position: absolute;
-  top: 3.2%;
-  left: 5.5%;
+  top: 2.5%;
+  left: 3.5%;
 
   cursor: pointer;
 `;
