@@ -65,7 +65,7 @@ function BokjumaniDetails() {
         <BokjumaniTag isLoaded={isLoaded}>{author}</BokjumaniTag>
       </BokjumaniWrapper>
 
-      <Greeting>{greeting}</Greeting>
+      <Greeting isLoaded={isLoaded}>{greeting}</Greeting>
 
       <BackButton src={backButtonSource} onClick={handleBackButtonClick} />
     </Container>
@@ -109,6 +109,8 @@ const Author = styled.span`
 `;
 
 const Greeting = styled.p`
+  visibility: ${({ isLoaded }) => (isLoaded ? "visible" : "hidden")};
+
   width: 80%;
 
   position: absolute;
