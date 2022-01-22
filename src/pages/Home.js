@@ -20,6 +20,28 @@ function Home() {
     dispatch,
   } = useContext(GlobalContext);
 
+  // prevent scrolling
+  useEffect(() => {
+    const removeEvent = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const disableScroll = () => {
+      document
+        .querySelector("body")
+        .addEventListener("touchmove", removeEvent, { passive: false });
+      document
+        .querySelector("body")
+        .addEventListener("onclick", removeEvent, { passive: false });
+      document
+        .querySelector("body")
+        .addEventListener("mousewheel", removeEvent, { passive: false });
+    };
+
+    disableScroll();
+  }, []);
+
   useEffect(async () => {
     const isSignUpPage = location.pathname.split("/")[1] === "signUp";
     const isSelectionPage = location.pathname.split("/")[1] === "select";
