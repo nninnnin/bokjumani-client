@@ -107,7 +107,7 @@ const Container = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 const BlackFlim = styled.div`
