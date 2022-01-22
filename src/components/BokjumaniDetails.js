@@ -18,6 +18,18 @@ import bokjumaniSource9 from "../assets/bokjumani/bok9.svg";
 
 import { GlobalContext } from "../App";
 
+const bokSourceList = {
+  1: bokjumaniSource1,
+  2: bokjumaniSource2,
+  3: bokjumaniSource3,
+  4: bokjumaniSource4,
+  5: bokjumaniSource5,
+  6: bokjumaniSource6,
+  7: bokjumaniSource7,
+  8: bokjumaniSource8,
+  9: bokjumaniSource9,
+};
+
 function BokjumaniDetails() {
   const {
     globalState: { bokjumaniList },
@@ -34,40 +46,7 @@ function BokjumaniDetails() {
 
   const { author, greeting, type } = bokjumani;
 
-  let source;
-
-  switch (type) {
-    case 1:
-      source = bokjumaniSource1;
-      break;
-    case 2:
-      source = bokjumaniSource2;
-      break;
-    case 3:
-      source = bokjumaniSource3;
-      break;
-    case 4:
-      source = bokjumaniSource4;
-      break;
-    case 5:
-      source = bokjumaniSource5;
-      break;
-    case 6:
-      source = bokjumaniSource6;
-      break;
-    case 7:
-      source = bokjumaniSource7;
-      break;
-    case 8:
-      source = bokjumaniSource8;
-      break;
-    case 9:
-      source = bokjumaniSource9;
-      break;
-    default:
-      source = bokjumaniSource1;
-      break;
-  }
+  const source = bokSourceList[type];
 
   function handleBackButtonClick() {
     navigate(-1);
