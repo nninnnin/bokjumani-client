@@ -83,7 +83,7 @@ function BokjumaniDetails() {
           onLoad={() => setIsLoaded(true)}
           isLoaded={isLoaded}
         />
-        <BokjumaniTag>{author}</BokjumaniTag>
+        <BokjumaniTag isLoaded={isLoaded}>{author}</BokjumaniTag>
       </BokjumaniWrapper>
 
       <Greeting>{greeting}</Greeting>
@@ -156,6 +156,8 @@ const BokjumaniImage = styled.img`
   margin-bottom: 7px;
 `;
 const BokjumaniTag = styled.span`
+  visibility: ${({ isLoaded }) => (isLoaded ? 1 : 0)};
+
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 3px;
   padding: 3% 7%;
