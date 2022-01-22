@@ -40,11 +40,11 @@ const AdvertisementImage = styled.img`
   transform: translate(-50%);
 `;
 const BackButton = styled.img`
-  width: 18%;
+  width: 17%;
 
   position: absolute;
-  top: 2.5%;
-  left: 3.5%;
+  top: 2.8%;
+  left: 4.2%;
 
   cursor: pointer;
 `;
@@ -132,7 +132,7 @@ function Login() {
 
       <LoginButton src={buttonSource} onClick={handleLoginButtonClick} />
 
-      <AdvertisementImage src={advertisementSource} />
+      {/* <AdvertisementImage src={advertisementSource} /> */}
     </Container>
   );
 }
