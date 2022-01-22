@@ -13,8 +13,8 @@ import bokjumaniSource4 from "../assets/bokjumani/bok4.svg";
 import bokjumaniSource5 from "../assets/bokjumani/bok5.svg";
 import bokjumaniSource6 from "../assets/bokjumani/bok6.svg";
 import bokjumaniSource7 from "../assets/bokjumani/bok7.svg";
-import bokjumaniSource8 from "../assets/bokjumani/bok1.svg";
-import bokjumaniSource9 from "../assets/bokjumani/bok1.svg";
+import bokjumaniSource8 from "../assets/bokjumani/bok8.svg";
+import bokjumaniSource9 from "../assets/bokjumani/bok9.svg";
 
 import { GlobalContext } from "../App";
 
