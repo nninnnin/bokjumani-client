@@ -1,6 +1,5 @@
 import { last } from "lodash";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -17,46 +16,21 @@ import bokjumaniSource7 from "../assets/bokjumani/bok7.svg";
 import bokjumaniSource8 from "../assets/bokjumani/bok1.svg";
 import bokjumaniSource9 from "../assets/bokjumani/bok1.svg";
 
+import { GlobalContext } from "../App";
+
 function BokjumaniDetails() {
+  const {
+    globalState: { bokjumaniList },
+  } = useContext(GlobalContext);
+
   const location = useLocation();
-
-  const [bokjumaniDetail, setBokjumaniDetail] = useState({
-    author: "",
-    greeting: "",
-    type: 0,
-  });
-
-  useEffect(async () => {
-    const bokjumaniId = last(location.pathname.split("/"));
-
-    const {
-      data: { result, bokjumani, message },
-    } = await axios(
-      `${process.env.REACT_APP_SERVER_URL}/bokjumani/${bokjumaniId}`
-    );
-
-    if (result === "failed") {
-      alert("복주머니를 불러올 수 없습니다 ㅠㅠ");
-
-      console.log(message);
-    }
-
-    const { author, greeting, type } = bokjumani;
-
-    setBokjumaniDetail({
-      author,
-      greeting,
-      type,
-    });
-  }, []);
+  const bokjumaniId = last(location.pathname.split("/"));
 
   const navigate = useNavigate();
 
-  function handleBackButtonClick() {
-    navigate(-1);
-  }
+  const bokjumani = bokjumaniList.find((el) => el._id === bokjumaniId);
 
-  const { author, greeting, type } = bokjumaniDetail;
+  const { author, greeting, type } = bokjumani;
 
   let source;
 
@@ -91,6 +65,10 @@ function BokjumaniDetails() {
     default:
       source = bokjumaniSource1;
       break;
+  }
+
+  function handleBackButtonClick() {
+    navigate(-1);
   }
 
   return (
