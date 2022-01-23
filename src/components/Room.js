@@ -10,8 +10,6 @@ import Basket from "./Basket";
 import brickSource from "../assets/background/brick.png";
 import wallpaperSource from "../assets/background/wallpaper.png";
 import windowSource from "../assets/gif/window.gif";
-import cabinetSource from "../assets/items/cabinet.svg";
-import televisionSource from "../assets/items/television.svg";
 import tvAndCabinetSource from "../assets/items/tv-and-cabinet.svg";
 import createButtonSource from "../assets/buttons/create.svg";
 import myHomeButtonSource from "../assets/buttons/my-home.svg";
