@@ -31,6 +31,7 @@ function Home() {
 
     setTimeout(() => {
       setShowHorang(false);
+      history.replaceState({}, document.title);
     }, 1400);
   }, [location.state?.isBokjumaniCreated]);
 
