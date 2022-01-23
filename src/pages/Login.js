@@ -80,7 +80,7 @@ function Login() {
     const { data } = await axios(url + "?" + encodedParams);
     const accessToken = data.access_token;
 
-    alert("1. ACCESS TOKEN!" + accessToken);
+    // alert("1. ACCESS TOKEN!" + accessToken);
 
     // 받아온 accessToken을 카카오에 세팅한다
     await Kakao.Auth.setAccessToken(accessToken);
@@ -90,7 +90,7 @@ function Login() {
       url: "/v2/user/me",
     });
 
-    alert("2. 토큰으로 가져온 카카오아이디" + kakaoId);
+    // alert("2. 토큰으로 가져온 카카오아이디" + kakaoId);
 
     // 유저의 kakaoId로 서버에 등록된 유저가 있는지 확인한다
     const { data: userData } = await axios(
@@ -105,7 +105,7 @@ function Login() {
 
     const { result, user } = userData;
 
-    alert("3. kakaoId로 가져온 유저데이터!" + result + user);
+    // alert("3. kakaoId로 가져온 유저데이터!" + result + user);
 
     // 회원으로 등록되어 있지 않은 유저일 경우
     if (result === "failed") {
