@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -7,14 +7,25 @@ import Login from "./pages/Login";
 import Select from "./components/Select";
 import Create from "./components/Create";
 import SignUp from "./components/SignUp";
+import Alert from "./components/Alert";
 import BokjumaniDetails from "./components/BokjumaniDetails";
 
 export const GlobalContext = createContext();
+
+function getIsOrAfterNewyearsday() {
+  const date = new Date().getDate();
+  const month = new Date().getMonth(); // 0 if is Jan
+
+  const result = (month === 0 && date >= 31) || month > 0;
+
+  return result;
+}
 
 const initialState = {
   roomOwner: "",
   bokjumaniList: [],
   selectedBok: Math.floor(Math.random() * 9) + 1,
+  isOrAfterNewyearsday: getIsOrAfterNewyearsday(),
 };
 
 function reducer(state, action) {
@@ -24,6 +35,8 @@ function reducer(state, action) {
     case "SET_BOKJUMANI_LIST":
       return { ...state, bokjumaniList: action.payload };
     case "SET_SELECTED_BOK":
+      return { ...state, selectedBok: action.payload };
+    case "SET_IS_OR_AFTER_NEWYEARSDAY":
       return { ...state, selectedBok: action.payload };
     default:
       throw new Error("Invalid action type");
@@ -64,7 +77,16 @@ function App() {
             <Route path="/select" element={<Select />} />
             <Route path="/create" element={<Create />} />
             <Route path="/signUp" element={<SignUp />} />
-            <Route path="/bokjumani/:bokId" element={<BokjumaniDetails />} />
+            {globalState.isOrAfterNewyearsday && (
+              <Route path="/bokjumani/:bokId" element={<BokjumaniDetails />} />
+            )}
+          </Routes>
+        )}
+
+        {/* alerts */}
+        {!globalState.isOrAfterNewyearsday && (
+          <Routes>
+            <Route path="/bokjumani/:bokId" element={<Alert />} />
           </Routes>
         )}
       </Container>
@@ -101,6 +123,7 @@ const Container = styled.div`
   width: 360px;
   height: 640px;
   max-width: 430px;
+  border-radius: 9px;
 
   position: fixed;
   top: 50%;
@@ -115,7 +138,7 @@ const BlackFlim = styled.div`
   width: 100%;
   height: 100%;
   z-index: 100;
-  opacity: 0.5;
+  opacity: 0.7;
 
   position: fixed;
   top: 0;
