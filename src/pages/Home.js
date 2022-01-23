@@ -1,5 +1,5 @@
 import { last } from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,8 @@ import signBoardBackgroundSource from "../assets/background/signboard.png";
 import inventoryButtonSource from "../assets/buttons/inventory-button.svg";
 import linkShareButtonSource from "../assets/buttons/link-share-button.svg";
 
+import horangSource from "../assets/gif/bok-test.gif";
+
 function Home() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,6 +21,18 @@ function Home() {
     globalState: { roomOwner, bokjumaniList },
     dispatch,
   } = useContext(GlobalContext);
+
+  const [showHorang, setShowHorang] = useState(false);
+
+  useEffect(() => {
+    if (!location.state?.isBokjumaniCreated) return;
+
+    setShowHorang(true);
+
+    setTimeout(() => {
+      setShowHorang(false);
+    }, 1400);
+  }, [location.state?.isBokjumaniCreated]);
 
   // prevent scrolling
   useEffect(() => {
@@ -77,6 +91,7 @@ function Home() {
     } = await axios(`${process.env.REACT_APP_SERVER_URL}/room/${userRoomId}`);
 
     if (result === "failed") {
+      // 잘못된 방(삭제된 유저의 roomId)에 들어온 상태
       console.log(message);
 
       alert("잘못된 링크입니다!");
@@ -100,6 +115,7 @@ function Home() {
       return;
     }
 
+    // 해당 방 owner 의 데이터를 성공적으로 가져온 경우
     dispatch({ type: "SET_ROOM_OWNER", payload: user.name });
     dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
   }, [location.state?.isBokjumaniCreated, location.state?.isFirstAtHome]);
@@ -131,7 +147,9 @@ function Home() {
     cookie?.user &&
     JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
 
-  console.log("Home rendered");
+  console.log(isMyRoom);
+
+  console.log(location);
 
   return (
     <Container>
@@ -154,6 +172,7 @@ function Home() {
 
       <RoomWrapper>
         <Room />
+        {showHorang && <Horang src={horangSource} />}
       </RoomWrapper>
     </Container>
   );
@@ -229,6 +248,14 @@ const MyRoomLinkSharingButton = styled.img`
 
 const RoomWrapper = styled.div`
   flex: 1;
+  position: relative;
+`;
+
+const Horang = styled.img`
+  width: 150px;
+  position: absolute;
+  top: 20%;
+  left: 0;
 `;
 
 export default React.memo(Home);
