@@ -1,13 +1,13 @@
-import { last } from "lodash";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import Cookie from "js-cookie";
 
 import BasketSource from "../assets/items/basket.svg";
 import BasketCoverSource from "../assets/items/basket-cover.svg";
 import BokjumaniSource5 from "../assets/bokjumani/bok5.svg";
 import BokjumaniSource6 from "../assets/bokjumani/bok6.svg";
 import BokjumaniSource9 from "../assets/bokjumani/bok9.svg";
+
+import { GlobalContext } from "../App";
 
 const Container = styled.div`
   width: 34%;
@@ -45,14 +45,12 @@ const Bokjumani = styled.img`
   cursor: pointer;
 `;
 
-const cookie = Cookie.get();
-
 function BasketComponent() {
-  const spreadRatio = 17;
+  const {
+    globalState: { isMyRoom },
+  } = useContext(GlobalContext);
 
-  const isMyRoom =
-    cookie.user &&
-    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
+  const spreadRatio = 17;
 
   return (
     <Container isMyRoom={isMyRoom}>

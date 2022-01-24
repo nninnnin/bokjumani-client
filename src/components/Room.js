@@ -1,5 +1,4 @@
-import { last } from "lodash";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
@@ -30,6 +29,8 @@ import calendar28Source from "../assets/calendar/28.png";
 import calendar29Source from "../assets/calendar/29.png";
 import calendar30Source from "../assets/calendar/30.png";
 import calendar31Source from "../assets/calendar/31.png";
+
+import { GlobalContext } from "../App";
 
 const calendarSourceList = {
   calendar16Source,
@@ -120,14 +121,13 @@ const MyHomeButton = styled(ButtonImage)`
 `;
 
 function Room() {
+  const {
+    globalState: { isMyRoom },
+  } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const cookie = Cookie.get();
-
-  // 내 집 => 현재 로그인한 유저(쿠키의 유저)의 room id와 지금 보고있는 location room id가 일치
-  const isMyRoom =
-    cookie.user &&
-    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
 
   function handleMyHomeButtonClick() {
     if (!cookie.user) {

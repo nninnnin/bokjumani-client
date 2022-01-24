@@ -18,7 +18,7 @@ function Home() {
   const navigate = useNavigate();
 
   const {
-    globalState: { roomOwner, bokjumaniList },
+    globalState: { roomOwner, bokjumaniList, isMyRoom },
     dispatch,
   } = useContext(GlobalContext);
 
@@ -141,16 +141,6 @@ function Home() {
       alert("내 방 링크가 복사되었어요!");
     }
   }
-
-  const cookie = Cookie.get();
-
-  const isMyRoom =
-    cookie?.user &&
-    JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
-
-  console.log(isMyRoom);
-
-  console.log(location);
 
   return (
     <Container>

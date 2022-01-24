@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useReducer } from "react";
+import { last } from "lodash";
+import React, { createContext, useEffect, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route, useLocation } from "react-router-dom";
+import Cookie from "js-cookie";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -23,6 +25,7 @@ function getIsOrAfterNewyearsday() {
 
 const initialState = {
   roomOwner: "",
+  isMyRoom: false,
   bokjumaniList: [],
   selectedBok: Math.floor(Math.random() * 9) + 1,
   isOrAfterNewyearsday: getIsOrAfterNewyearsday(),
@@ -32,6 +35,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "SET_ROOM_OWNER":
       return { ...state, roomOwner: action.payload };
+    case "SET_IS_MY_ROOM":
+      return { ...state, isMyRoom: action.payload };
     case "SET_BOKJUMANI_LIST":
       return { ...state, bokjumaniList: action.payload };
     case "SET_SELECTED_BOK":
@@ -51,6 +56,21 @@ function App() {
   const hasModal = Boolean(backgroundLocation);
 
   const [globalState, dispatch] = useReducer(reducer, initialState);
+
+  const cookie = Cookie.get();
+
+  useEffect(() => {
+    const isMyRoom =
+      cookie?.user &&
+      JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
+
+    if (globalState.isMyRoom === isMyRoom) return;
+
+    dispatch({
+      type: "SET_IS_MY_ROOM",
+      payload: isMyRoom,
+    });
+  }, [cookie]);
 
   return (
     <GlobalContext.Provider value={{ globalState, dispatch }}>

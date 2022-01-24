@@ -1,5 +1,5 @@
 import { last } from "lodash";
-import React, { useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
@@ -16,11 +16,9 @@ import bokjumaniSource9 from "../assets/bokjumani/bok9.svg";
 
 import { GlobalContext } from "../App";
 
-const cookie = Cookie.get();
-
 function BokjimanmiList() {
   let {
-    globalState: { bokjumaniList },
+    globalState: { bokjumaniList, isMyRoom },
   } = useContext(GlobalContext);
 
   const slicedBokList = bokjumaniList.slice(0, 16);
@@ -75,10 +73,6 @@ function BokjimanmiList() {
     });
   }
 
-  const isMyRoom =
-    cookie.user &&
-    JSON.parse(cookie.user).room_uri === last(location.pathname.split("/"));
-
   return (
     <Container isMyRoom={isMyRoom}>
       <BokjumaniContainer>
@@ -93,111 +87,6 @@ function BokjimanmiList() {
             </BokjumaniWrapper>
           );
         })}
-        {/* <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper>
-        <BokjumaniWrapper>
-          <Bokjumani
-            src={bokjumaniSource1}
-            onClick={() => handleBokjumaniClick(bok._id)}
-          />
-          <BokjumaniAuthor>김안나</BokjumaniAuthor>
-        </BokjumaniWrapper> */}
       </BokjumaniContainer>
     </Container>
   );
