@@ -60,9 +60,19 @@ function App() {
   const cookie = Cookie.get();
 
   useEffect(() => {
-    const isMyRoom =
-      cookie?.user &&
-      JSON.parse(cookie?.user).room_uri === last(location.pathname.split("/"));
+    if (!cookie || !cookie.user) return;
+
+    let isMyRoom;
+
+    if (backgroundLocation) {
+      isMyRoom =
+        JSON.parse(cookie?.user).room_uri ===
+        last(backgroundLocation.pathname.split("/"));
+    } else {
+      isMyRoom =
+        JSON.parse(cookie?.user).room_uri ===
+        last(location.pathname.split("/"));
+    }
 
     if (globalState.isMyRoom === isMyRoom) return;
 
