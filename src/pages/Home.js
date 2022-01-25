@@ -1,4 +1,3 @@
-import { last } from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,23 +10,45 @@ import signBoardBackgroundSource from "../assets/background/signboard.png";
 import inventoryButtonSource from "../assets/buttons/inventory-button.svg";
 import linkShareButtonSource from "../assets/buttons/link-share-button.svg";
 
-import horangSource from "../assets/gif/bok-test.gif";
+import horangSource1 from "../assets/gif/bok1.gif";
+import horangSource2 from "../assets/gif/bok2.gif";
+import horangSource3 from "../assets/gif/bok3.gif";
+import horangSource4 from "../assets/gif/bok4.gif";
+import horangSource5 from "../assets/gif/bok5.gif";
+import horangSource6 from "../assets/gif/bok6.gif";
+import horangSource7 from "../assets/gif/bok7.gif";
+import horangSource8 from "../assets/gif/bok8.gif";
+import horangSource9 from "../assets/gif/bok9.gif";
+
+const horangSourceList = {
+  1: horangSource1,
+  2: horangSource2,
+  3: horangSource3,
+  4: horangSource4,
+  5: horangSource5,
+  6: horangSource6,
+  7: horangSource7,
+  8: horangSource8,
+  9: horangSource9,
+};
 
 function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const {
-    globalState: { roomOwner, bokjumaniList, isMyRoom },
+    globalState: { roomOwner, bokjumaniList, selectedBok, isMyRoom },
     dispatch,
   } = useContext(GlobalContext);
 
+  const [createdBokType, setCreatedBokType] = useState(1);
   const [showHorang, setShowHorang] = useState(false);
 
   useEffect(() => {
     if (!location.state?.isBokjumaniCreated) return;
 
     setShowHorang(true);
+    setCreatedBokType(location.state.createdBokType);
 
     setTimeout(() => {
       setShowHorang(false);
@@ -141,6 +162,8 @@ function Home() {
       alert("내 방 링크가 복사되었어요!");
     }
   }
+
+  const horangSource = horangSourceList[createdBokType];
 
   return (
     <Container>

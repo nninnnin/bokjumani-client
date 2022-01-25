@@ -67,7 +67,7 @@ function Create() {
 
       navigate(redirectionPath, {
         replace: true,
-        state: { isBokjumaniCreated: true },
+        state: { isBokjumaniCreated: true, createdBokType: selectedBok },
       });
     } else {
       alert("새로운 복주머니 생성에 실패했습니다..🥲");
