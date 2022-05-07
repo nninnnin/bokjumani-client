@@ -1,8 +1,6 @@
-import { last } from "lodash";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-import Cookie from "js-cookie";
 
 import bokjumaniSource1 from "@assets/bokjumani/bok1.svg";
 import bokjumaniSource2 from "@assets/bokjumani/bok2.svg";
@@ -68,7 +66,7 @@ function BokjimanmiList() {
   const navigate = useNavigate();
 
   function handleBokjumaniClick(bokId) {
-    navigate(`/bokjumani/${bokId}`, {
+    navigate(`bokjumani/${bokId}`, {
       state: { backgroundLocation: location },
     });
   }

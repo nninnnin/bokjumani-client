@@ -100,20 +100,24 @@ function App() {
           <Route path="/:roomId" element={<Home />} />
         </Routes>
 
-        {hasModal && <BlackFlim />}
-
-        {/* 모달 routes */}
-        {locationState?.backgroundLocation && (
-          <Routes>
-            <Route path="/select" element={<Select />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/signUp" element={<SignUp />} />
-            {globalState.isOrAfterNewyearsday && (
-              <Route path="/bokjumani/:bokId" element={<Details />} />
-            )}
-            <Route path="bokjumani/inventory" element={<Inventory />} />
-          </Routes>
-        )}
+        <>
+          {/* 모달 routes */}
+          {locationState?.backgroundLocation && (
+            <Routes>
+              <Route path="/select" element={<Select />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/signUp" element={<SignUp />} />
+              {globalState.isOrAfterNewyearsday && (
+                <Route path="/:roomId/bokjumani/:bokId" element={<Details />} />
+              )}
+              <Route
+                path="/:roomId/bokjumani/inventory"
+                element={<Inventory />}
+              />
+            </Routes>
+          )}
+          {hasModal && <BlackFlim />}
+        </>
 
         {/* alerts */}
         {!globalState.isOrAfterNewyearsday && (

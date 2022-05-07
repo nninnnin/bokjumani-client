@@ -4,11 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookie from "js-cookie";
 
-import Room from "../components/Room";
+import AppHeader from "@components/AppHeader";
+import Room from "@components/Room";
 import { GlobalContext } from "@src/App";
-import signBoardBackgroundSource from "@assets/background/signboard.png";
-import inventoryButtonSource from "@assets/buttons/inventory-button.svg";
-import linkShareButtonSource from "@assets/buttons/link-share-button.svg";
 
 import horangSource1 from "@assets/gif/bok1.gif";
 import horangSource2 from "@assets/gif/bok2.gif";
@@ -36,10 +34,7 @@ function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    globalState: { roomOwner, bokjumaniList, selectedBok, isMyRoom },
-    dispatch,
-  } = useContext(GlobalContext);
+  const { dispatch } = useContext(GlobalContext);
 
   const [createdBokType, setCreatedBokType] = useState(1);
   const [showHorang, setShowHorang] = useState(false);
@@ -142,47 +137,11 @@ function Home() {
     dispatch({ type: "SET_BOKJUMANI_LIST", payload: user.bokjumani_list });
   }, [location.state?.isBokjumaniCreated, location.state?.isFirstAtHome]);
 
-  async function handleMyRoomLinkSharingButtonClick() {
-    const roomUri = location.pathname;
-
-    if (navigator.share) {
-      navigator.share({
-        title: "복주머니",
-        text: "내 방에 놀러와!",
-        url: roomUri,
-      });
-
-      return;
-    }
-
-    navigator.clipboard.writeText(roomUri);
-    const readText = await navigator.clipboard.readText();
-
-    if (readText === roomUri) {
-      alert("내 방 링크가 복사되었어요!");
-    }
-  }
-
   const horangSource = horangSourceList[createdBokType];
 
   return (
     <Container>
-      <UpperWrapper>
-        <HeaderWrapper>
-          <Header>
-            {roomOwner}님에게 복주머니 {bokjumaniList.length}개 가 전달됐어요
-          </Header>
-        </HeaderWrapper>
-        {isMyRoom && (
-          <ButtonSection>
-            <InventoryButton src={inventoryButtonSource} />
-            <MyRoomLinkSharingButton
-              src={linkShareButtonSource}
-              onClick={handleMyRoomLinkSharingButtonClick}
-            />
-          </ButtonSection>
-        )}
-      </UpperWrapper>
+      <AppHeader />
 
       <RoomWrapper>
         <Room />
@@ -206,58 +165,6 @@ const Container = styled.div`
   flex-direction: column;
 
   overflow: hidden;
-`;
-
-const UpperWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-`;
-
-const HeaderWrapper = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  padding: 0 2%;
-  padding-top: 1%;
-
-  position: relative;
-  top: 6%;
-
-  background-image: url(${signBoardBackgroundSource});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-const Header = styled.marquee`
-  width: 100%;
-  padding: 5px;
-
-  border-radius: 5px;
-  color: yellow;
-  line-height: 2em;
-
-  font-family: "BMEULJIRO";
-  font-size: 2.6vh;
-  word-break: keep-all;
-`;
-
-const ButtonSection = styled.div`
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-`;
-
-const InventoryButton = styled.img`
-  width: 40%;
-  margin: 4px 1%;
-  margin-bottom: 21px;
-`;
-const MyRoomLinkSharingButton = styled.img`
-  width: 40%;
-  margin: 4px 1%;
-  margin-bottom: 21px;
 `;
 
 const RoomWrapper = styled.div`
