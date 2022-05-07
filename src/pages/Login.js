@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
-import backgroundSource from "../assets/background/background-login.png";
-import buttonSource from "../assets/login/kakao-button.svg";
-import advertisementSource from "../assets/login/advertisement.svg";
-import backButtonSource from "../assets/buttons/back.svg";
+import backgroundSource from "@assets/background/background-login.png";
+import buttonSource from "@assets/login/kakao-button.svg";
+import advertisementSource from "@assets/login/advertisement.svg";
+import backButtonSource from "@assets/buttons/back.svg";
 
 import { encodeParameters } from "../utils";
 

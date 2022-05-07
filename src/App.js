@@ -10,7 +10,8 @@ import Select from "./components/Select";
 import Create from "./components/Create";
 import SignUp from "./components/SignUp";
 import Alert from "./components/Alert";
-import BokjumaniDetails from "./components/BokjumaniDetails";
+import Details from "./components/bokjumani/Details";
+import Inventory from "./components/bokjumani/Inventory";
 
 export const GlobalContext = createContext();
 
@@ -108,8 +109,9 @@ function App() {
             <Route path="/create" element={<Create />} />
             <Route path="/signUp" element={<SignUp />} />
             {globalState.isOrAfterNewyearsday && (
-              <Route path="/bokjumani/:bokId" element={<BokjumaniDetails />} />
+              <Route path="/bokjumani/:bokId" element={<Details />} />
             )}
+            <Route path="bokjumani/inventory" element={<Inventory />} />
           </Routes>
         )}
 

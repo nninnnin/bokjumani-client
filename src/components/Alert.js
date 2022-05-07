@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
-import alertImageSource from "../assets/alert/block-message.svg";
-import closeButtonSource from "../assets/buttons/close.svg";
+import alertImageSource from "@assets/alert/block-message.svg";
+import closeButtonSource from "@assets/buttons/close.svg";
 
 const Container = styled.div`
   width: 70%;

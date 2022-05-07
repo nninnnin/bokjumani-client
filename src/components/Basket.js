@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import BasketSource from "../assets/items/basket.svg";
-import BasketCoverSource from "../assets/items/basket-cover.svg";
-import BokjumaniSource5 from "../assets/bokjumani/bok5.svg";
-import BokjumaniSource6 from "../assets/bokjumani/bok6.svg";
-import BokjumaniSource9 from "../assets/bokjumani/bok9.svg";
+import BasketSource from "@assets/items/basket.svg";
+import BasketCoverSource from "@assets/items/basket-cover.svg";
+import BokjumaniSource5 from "@assets/bokjumani/bok5.svg";
+import BokjumaniSource6 from "@assets/bokjumani/bok6.svg";
+import BokjumaniSource9 from "@assets/bokjumani/bok9.svg";
 
-import { GlobalContext } from "../App";
+import { GlobalContext } from "@src/App";
 
 const Container = styled.div`
   width: 34%;

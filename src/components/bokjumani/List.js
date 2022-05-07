@@ -4,17 +4,17 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
 
-import bokjumaniSource1 from "../assets/bokjumani/bok1.svg";
-import bokjumaniSource2 from "../assets/bokjumani/bok2.svg";
-import bokjumaniSource3 from "../assets/bokjumani/bok3.svg";
-import bokjumaniSource4 from "../assets/bokjumani/bok4.svg";
-import bokjumaniSource5 from "../assets/bokjumani/bok5.svg";
-import bokjumaniSource6 from "../assets/bokjumani/bok6.svg";
-import bokjumaniSource7 from "../assets/bokjumani/bok7.svg";
-import bokjumaniSource8 from "../assets/bokjumani/bok8.svg";
-import bokjumaniSource9 from "../assets/bokjumani/bok9.svg";
+import bokjumaniSource1 from "@assets/bokjumani/bok1.svg";
+import bokjumaniSource2 from "@assets/bokjumani/bok2.svg";
+import bokjumaniSource3 from "@assets/bokjumani/bok3.svg";
+import bokjumaniSource4 from "@assets/bokjumani/bok4.svg";
+import bokjumaniSource5 from "@assets/bokjumani/bok5.svg";
+import bokjumaniSource6 from "@assets/bokjumani/bok6.svg";
+import bokjumaniSource7 from "@assets/bokjumani/bok7.svg";
+import bokjumaniSource8 from "@assets/bokjumani/bok8.svg";
+import bokjumaniSource9 from "@assets/bokjumani/bok9.svg";
 
-import { GlobalContext } from "../App";
+import { GlobalContext } from "@src/App";
 
 function BokjimanmiList() {
   let {

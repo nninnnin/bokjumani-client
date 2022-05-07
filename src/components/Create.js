@@ -4,10 +4,10 @@ import React, { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import backgroundSource from "../assets/background/modal-background-create.png";
-import backButtonSource from "../assets/buttons/back.svg";
-import submitButtonSource from "../assets/buttons/submit.svg";
-import { GlobalContext } from "../App";
+import backgroundSource from "@assets/background/modal-background-create.png";
+import backButtonSource from "@assets/buttons/back.svg";
+import submitButtonSource from "@assets/buttons/submit.svg";
+import { GlobalContext } from "@src/App";
 
 function Create() {
   const {

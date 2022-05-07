@@ -3,34 +3,34 @@ import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
 
-import BokjimanmiList from "./BokjumaniList";
+import List from "./bokjumani/List";
 import Basket from "./Basket";
 
-import brickSource from "../assets/background/brick.png";
-import wallpaperSource from "../assets/background/wallpaper.png";
-import windowSource from "../assets/gif/window.gif";
-import tvAndCabinetSource from "../assets/items/tv-and-cabinet.svg";
-import createButtonSource from "../assets/buttons/create.svg";
-import myHomeButtonSource from "../assets/buttons/my-home.svg";
+import brickSource from "@assets/background/brick.png";
+import wallpaperSource from "@assets/background/wallpaper.png";
+import windowSource from "@assets/gif/window.gif";
+import tvAndCabinetSource from "@assets/items/tv-and-cabinet.svg";
+import createButtonSource from "@assets/buttons/create.svg";
+import myHomeButtonSource from "@assets/buttons/my-home.svg";
 
-import calendar16Source from "../assets/calendar/16.png";
-import calendar17Source from "../assets/calendar/17.png";
-import calendar18Source from "../assets/calendar/18.png";
-import calendar19Source from "../assets/calendar/19.png";
-import calendar20Source from "../assets/calendar/20.png";
-import calendar21Source from "../assets/calendar/21.png";
-import calendar22Source from "../assets/calendar/22.png";
-import calendar23Source from "../assets/calendar/23.png";
-import calendar24Source from "../assets/calendar/24.png";
-import calendar25Source from "../assets/calendar/25.png";
-import calendar26Source from "../assets/calendar/26.png";
-import calendar27Source from "../assets/calendar/27.png";
-import calendar28Source from "../assets/calendar/28.png";
-import calendar29Source from "../assets/calendar/29.png";
-import calendar30Source from "../assets/calendar/30.png";
-import calendar31Source from "../assets/calendar/31.png";
+import calendar16Source from "@assets/calendar/16.png";
+import calendar17Source from "@assets/calendar/17.png";
+import calendar18Source from "@assets/calendar/18.png";
+import calendar19Source from "@assets/calendar/19.png";
+import calendar20Source from "@assets/calendar/20.png";
+import calendar21Source from "@assets/calendar/21.png";
+import calendar22Source from "@assets/calendar/22.png";
+import calendar23Source from "@assets/calendar/23.png";
+import calendar24Source from "@assets/calendar/24.png";
+import calendar25Source from "@assets/calendar/25.png";
+import calendar26Source from "@assets/calendar/26.png";
+import calendar27Source from "@assets/calendar/27.png";
+import calendar28Source from "@assets/calendar/28.png";
+import calendar29Source from "@assets/calendar/29.png";
+import calendar30Source from "@assets/calendar/30.png";
+import calendar31Source from "@assets/calendar/31.png";
 
-import { GlobalContext } from "../App";
+import { GlobalContext } from "@src/App";
 
 const calendarSourceList = {
   calendar16Source,
@@ -155,7 +155,7 @@ function Room() {
         isMyRoom={isMyRoom}
       />
 
-      <BokjimanmiList />
+      <List />
 
       {!isMyRoom && (
         <ButtonSection>

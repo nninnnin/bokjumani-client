@@ -2,19 +2,19 @@ import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import bok1Source from "../assets/bokjumani/selective/bok1.svg";
-import bok2Source from "../assets/bokjumani/selective/bok2.svg";
-import bok3Source from "../assets/bokjumani/selective/bok3.svg";
-import bok4Source from "../assets/bokjumani/selective/bok4.svg";
-import bok5Source from "../assets/bokjumani/selective/bok5.svg";
-import bok6Source from "../assets/bokjumani/selective/bok6.svg";
-import bok7Source from "../assets/bokjumani/selective/bok7.svg";
-import bok8Source from "../assets/bokjumani/selective/bok8.svg";
-import bok9Source from "../assets/bokjumani/selective/bok9.svg";
+import bok1Source from "@assets/bokjumani/selective/bok1.svg";
+import bok2Source from "@assets/bokjumani/selective/bok2.svg";
+import bok3Source from "@assets/bokjumani/selective/bok3.svg";
+import bok4Source from "@assets/bokjumani/selective/bok4.svg";
+import bok5Source from "@assets/bokjumani/selective/bok5.svg";
+import bok6Source from "@assets/bokjumani/selective/bok6.svg";
+import bok7Source from "@assets/bokjumani/selective/bok7.svg";
+import bok8Source from "@assets/bokjumani/selective/bok8.svg";
+import bok9Source from "@assets/bokjumani/selective/bok9.svg";
 
-import backgroundSource from "../assets/background/modal-background-select.png";
-import backButtonSource from "../assets/buttons/back.svg";
-import nextButtonSource from "../assets/buttons/next.svg";
+import backgroundSource from "@assets/background/modal-background-select.png";
+import backButtonSource from "@assets/buttons/back.svg";
+import nextButtonSource from "@assets/buttons/next.svg";
 
 const bokSourceList = [
   bok1Source,
@@ -28,7 +28,7 @@ const bokSourceList = [
   bok9Source,
 ];
 
-import { GlobalContext } from "../App";
+import { GlobalContext } from "@src/App";
 
 function Create() {
   const {

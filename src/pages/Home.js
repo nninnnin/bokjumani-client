@@ -5,20 +5,20 @@ import axios from "axios";
 import Cookie from "js-cookie";
 
 import Room from "../components/Room";
-import { GlobalContext } from "../App";
-import signBoardBackgroundSource from "../assets/background/signboard.png";
-import inventoryButtonSource from "../assets/buttons/inventory-button.svg";
-import linkShareButtonSource from "../assets/buttons/link-share-button.svg";
+import { GlobalContext } from "@src/App";
+import signBoardBackgroundSource from "@assets/background/signboard.png";
+import inventoryButtonSource from "@assets/buttons/inventory-button.svg";
+import linkShareButtonSource from "@assets/buttons/link-share-button.svg";
 
-import horangSource1 from "../assets/gif/bok1.gif";
-import horangSource2 from "../assets/gif/bok2.gif";
-import horangSource3 from "../assets/gif/bok3.gif";
-import horangSource4 from "../assets/gif/bok4.gif";
-import horangSource5 from "../assets/gif/bok5.gif";
-import horangSource6 from "../assets/gif/bok6.gif";
-import horangSource7 from "../assets/gif/bok7.gif";
-import horangSource8 from "../assets/gif/bok8.gif";
-import horangSource9 from "../assets/gif/bok9.gif";
+import horangSource1 from "@assets/gif/bok1.gif";
+import horangSource2 from "@assets/gif/bok2.gif";
+import horangSource3 from "@assets/gif/bok3.gif";
+import horangSource4 from "@assets/gif/bok4.gif";
+import horangSource5 from "@assets/gif/bok5.gif";
+import horangSource6 from "@assets/gif/bok6.gif";
+import horangSource7 from "@assets/gif/bok7.gif";
+import horangSource8 from "@assets/gif/bok8.gif";
+import horangSource9 from "@assets/gif/bok9.gif";
 
 const horangSourceList = {
   1: horangSource1,
